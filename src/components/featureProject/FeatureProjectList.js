@@ -7,12 +7,13 @@ import './feature.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import '../form/registrationPage.css';
 
-const localIpUrl = require('local-ip-url');
-const ipAddress = localIpUrl('public');
 import ReactHtmlParser from 'react-html-parser';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import axios from 'axios';
 import '../global/card.css';
+
+const localIpUrl = require('local-ip-url');
+const ipAddress = localIpUrl('public');
 
 function FeatureProjectList(props) {
     const [featureProject, setfeatureProject] = useState([]);

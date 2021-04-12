@@ -14,9 +14,10 @@ import { Formik } from 'formik';
 import Cookies from 'universal-cookie';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 
+import './feature.css';
+
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
-import './feature.css';
 
 const validateForm = (errors) => {
     let valid = true;

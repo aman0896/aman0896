@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../main/style.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
@@ -7,8 +6,7 @@ import './feature.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import '../form/registrationPage.css';
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-const localIpUrl = require('local-ip-url');
-const ipAddress = localIpUrl('public');
+
 import ReactHtmlParser from 'react-html-parser';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import axios from 'axios';
@@ -16,7 +14,8 @@ import Cookies from 'universal-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDelete from './ModalDelete';
 
-
+const localIpUrl = require('local-ip-url');
+const ipAddress = localIpUrl('public');
 const cookies = new Cookies();
 
 function EditFeatureProjectList(props) {
@@ -35,7 +34,7 @@ function EditFeatureProjectList(props) {
     var dateObj;
     var dateString;
     var projectList;
-     var files; 
+    var files;
 
     var filterProjectList;
     useEffect(() => {
@@ -58,8 +57,8 @@ function EditFeatureProjectList(props) {
         const { match } = props;
         const name = title;
         const id = ID;
-        console.log(name, id,match);
-     window.location.href = `edit-projectlist/${id}/${name}`;
+        console.log(name, id, match);
+        window.location.href = `edit-projectlist/${id}/${name}`;
     };
 
     const searchSpace = (event) => {
@@ -109,8 +108,7 @@ function EditFeatureProjectList(props) {
         .map((project, index) => {
             if (project.Files) {
                 files = JSON.parse(project.Image);
-                console.log(files)
-             
+                console.log(files);
             }
 
             return (
@@ -347,7 +345,9 @@ function EditFeatureProjectList(props) {
                     </button>
                 </form> */}
 
-                <div style={{ flex: 1, marginBottom:"20px",marginTop:"20px" }}>
+                <div
+                    style={{ flex: 1, marginBottom: '20px', marginTop: '20px' }}
+                >
                     <div id="searchbar">
                         <input
                             className="form-control"
