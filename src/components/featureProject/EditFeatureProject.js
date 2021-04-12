@@ -115,10 +115,6 @@ class Editfeature extends Component {
 
     handleChange = (e, editor) => this.setState({ summary: editor.getData() });
 
-    onClickDelete = (filePath) => {
-        axios
-    }
-
     handleChangedescription = (e, editor) =>
         this.setState({ description: editor.getData() });
 
@@ -512,7 +508,7 @@ class Editfeature extends Component {
                                                     onLoad={this.onImgLoad}
                                                 />
                                                 {/* dimensions width:{width}, height:{height} */}
-                                                {/* <span className="text-danger  text-center">
+                                            {/* <span className="text-danger  text-center">
                                                     {errors.fileName &&
                                                         touched.fileName &&
                                                         errors.fileName}
@@ -564,7 +560,6 @@ class Editfeature extends Component {
                                                             </div>
                                                         )
                                                     )} */}
-                                            
                                             <div className="form-group mb-2">
                                                 <label
                                                     className="font-weight-bold small"
