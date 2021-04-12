@@ -640,7 +640,7 @@ function EditManufacturerProfile(props) {
                     </div>
                 </div>
 
-                <div className="col-md-12 col-sm-12 col-12 mt-4">
+                {/* <div className="col-md-12 col-sm-12 col-12 mt-4">
                     <div className="card">
                         <div className="card-body">
                             <h3 className="mb-3 text-primary">
@@ -674,7 +674,7 @@ function EditManufacturerProfile(props) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt-4">
                     <button
