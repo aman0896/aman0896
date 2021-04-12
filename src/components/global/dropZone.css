@@ -1,0 +1,18 @@
+.uploadParts {
+  background: rgb(235, 234, 234);
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  color: black;
+  align-items: center;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: rgb(189, 187, 187);
+  border-radius: 10px;
+  outline: none;
+  transition: ease-in-out;
+}
+
+.uploadParts:active {
+  border-color: #2196f3;
+}

@@ -1,0 +1,25 @@
+.registrationPage {
+  background-color: rgb(58, 57, 57);
+  min-height: 95vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#registrationCard {
+  display: flex;
+  justify-content: center;
+  /* box-shadow: 5px 5px 20px black; */
+  background-color: rgb(238, 238, 238);
+  height: auto;
+  width: 30rem;
+}
+
+#registrationCard input {
+  border-radius: 2px;
+}
+
+#registrationCard button {
+  border-radius: 2px;
+  width: 40%;
+}

@@ -1,0 +1,50 @@
+.card-title {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.2rem;
+}
+
+.email {
+    font-size: 14px;
+    color: gray;
+}
+
+.date {
+    font-size: 14px;
+    color: gray;
+}
+
+.hr-line {
+    margin: 5px;
+    border: 1px solid #f0f0f0;
+}
+.body-view {
+    max-height: 140px;
+}
+
+.sub-title {
+    font-size: 15px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.body-text {
+    font-size: 13px;
+    margin-left: 10px;
+    line-height: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.readmore-div {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    bottom: 0;
+    cursor: 'pointer';
+    margin-right: 1rem;
+    color: #007bff;
+}

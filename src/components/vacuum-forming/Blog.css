@@ -1,0 +1,7 @@
+.MuiTableContainer-root{
+    margin-top: 1.5rem;
+}
+
+.MuiButtonBase-root{
+    cursor: unset !important;
+}

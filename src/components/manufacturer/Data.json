@@ -1,0 +1,30 @@
+[
+    {
+        "manufacturing_Process": "3D Printing",
+        "material": "ABS, PLA, PC",
+        "cost_unit": "Gram Hour",
+        "unit_rate": {
+            "price_1": "Rs. 6",
+            "price_2": "Rs. 160"
+        },
+        "MoQ": "1",
+        "accepted_files": ".stl, .obj, .step",
+        "lead_time": "2-3 Days",
+        "additional_details": "Extra charges for post processing."
+    },
+    {
+        "manufacturing_Process": "LASER Cutting",
+        "material": "Acryllic, Forex",
+        "cost_unit": "Sq. ft. Minute",
+        "unit_rate": {
+            "price_1": "Rs. 120",
+            "price_2": "Rs. 16"
+        },
+        "MoQ": "10",
+        "accepted_files": ".pdf, .dwg, .dxf",
+        "lead_time": "1-2 Days",
+        "additional_details": "Customer can also bring own material."
+        
+    }
+    
+]

@@ -1,0 +1,26 @@
+.tags-input {
+    display: block;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 7px;
+    margin: 0 auto;
+}
+
+.tags-input input {
+    width: 100%;
+    outline: 0 none;
+    border: none;
+    font-size: 14px;
+}
+
+.tag {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 2px 5px;
+    background-color: #007bff;
+    border-radius: 3px;
+    margin: 3px;
+    width: auto;
+    color: white;
+}

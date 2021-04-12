@@ -1,0 +1,24 @@
+.loginPage {
+ 
+  min-height: 95vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginCard {
+  /* box-shadow: 5px 5px 20px black; */
+  background-color: rgb(238, 238, 238);
+  height: auto;
+  width: 20rem;
+}
+
+/* #loginCard input {
+  border-radius: 2px;
+} */
+
+#loginCard button {
+  border-radius: 2px;
+  width: 40%;
+  height: auto;
+}

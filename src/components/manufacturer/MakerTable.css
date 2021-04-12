@@ -1,0 +1,26 @@
+/* .table thead th,
+td {
+  background-color: white;
+  padding: 15px;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #6ea9f1 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  text-align: top !important;
+}
+
+
+
+/* td {
+  background-color: #e9edf4 !important;
+  text-align: top !important;
+}  */ 

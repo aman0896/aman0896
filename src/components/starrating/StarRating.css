@@ -1,0 +1,12 @@
+h1{
+    font-size: 4rem !important;
+    font-weight: 400 !important;
+}
+
+.show-inline {
+    display: inline-block !important;
+    vertical-align: middle;
+}
+.show-inline + .show-inline {
+    margin-left: 16px;
+}
