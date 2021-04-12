@@ -20,7 +20,7 @@ function KnowledgeBankViewLeft({ title, info, image }) {
         src={image}
         alt=""
         style={{
-          height: "50%",
+          height: "40%",
           width: "100%",
           objectFit: "cover",
           marginBottom: "10px",
@@ -81,8 +81,8 @@ class KnowledgeBank extends Component {
             info={
               <span>
                 Rapid prototyping and customized product development made easy
-                with additive manufacturing.
-                <br /> #Medical #Dental #IndustrialProduct #Prototyping
+               
+                <br /> #Medical #Dental #IndustrialProduct
               
               </span>
             }

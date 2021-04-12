@@ -167,7 +167,7 @@ class HomePage extends Component {
                             }
                         />
                     </div>
-                    <Link
+                    {/* <Link
                         to="/manufacturer-signup"
                         className="d-flex justify-content-center mt-3 text-primary"
                         style={{
@@ -179,7 +179,7 @@ class HomePage extends Component {
                         }}
                     >
                         Learn How to place orders
-                    </Link>
+                    </Link> */}
                     <div className="pt-4"></div>
                 </div>
             </div>
