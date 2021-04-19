@@ -488,7 +488,7 @@ app.post('/delete-project', (req, res) => {
   const title = req.body.title;
   const summary = req.body.summary;
   console.log("feature-project", process, material); */
-    id = req.body.id;
+    const id = req.body.id;
 
     db.query(
         'DELETE FROM feature_project WHERE Project_ID=?',
@@ -581,7 +581,7 @@ app.post('/login', (req, res) => {
             if (result.length > 0) {
                 var userinfo = JSON.stringify(result);
                 userinfo = userinfo.replace(/[\[\]]/g, '');
-                userinfoJson = JSON.parse(userinfo);
+                const userinfoJson = JSON.parse(userinfo);
                 if (userinfoJson.Verified == 0) {
                     res.send({
                         message: 'verify account first',
@@ -641,7 +641,7 @@ app.post('/login', (req, res) => {
                                     result[0].Password,
                                     (error, response) => {
                                         if (response) {
-                                            userInfo = result;
+                                            let userInfo = result;
                                             res.send({
                                                 userInfo,
                                                 loggedIn: true,
@@ -688,7 +688,7 @@ app.post('/validation-page', (req, res) => {
         }
         //console.log(result);
         if (result.length > 0) {
-            fileinfo = {
+            let fileinfo = {
                 filename: result[0].filename,
                 filepath: `/uploads/${result[0].filename}`,
                 email: email,
@@ -1235,7 +1235,7 @@ app.post('/registeredhubs', (req, res) => {
     try {
         db.query('SELECT * FROM manufacturer', (err, manufacturerList) => {
             if (!err && manufacturerList.length > 0) {
-                sql =
+                let sql =
                     'SELECT fs.Name, s.Material_Name, s.Manufacturer_ID, s.Unit_Rate, s.Cost_Unit' +
                     ' ' +
                     'FROM services s' +
