@@ -6,7 +6,6 @@ import './feature.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import '../form/registrationPage.css';
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-
 import ReactHtmlParser from 'react-html-parser';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import axios from 'axios';
@@ -14,8 +13,11 @@ import Cookies from 'universal-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDelete from './ModalDelete';
 
+
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
+
+
 const cookies = new Cookies();
 
 function EditFeatureProjectList(props) {
@@ -34,7 +36,7 @@ function EditFeatureProjectList(props) {
     var dateObj;
     var dateString;
     var projectList;
-    var files;
+     var files; 
 
     var filterProjectList;
     useEffect(() => {
@@ -57,8 +59,8 @@ function EditFeatureProjectList(props) {
         const { match } = props;
         const name = title;
         const id = ID;
-        console.log(name, id, match);
-        window.location.href = `edit-projectlist/${id}/${name}`;
+        console.log(name, id,match);
+     window.location.href = `edit-projectlist/${id}/${name}`;
     };
 
     const searchSpace = (event) => {
@@ -108,7 +110,8 @@ function EditFeatureProjectList(props) {
         .map((project, index) => {
             if (project.Files) {
                 files = JSON.parse(project.Image);
-                console.log(files);
+                console.log(files)
+             
             }
 
             return (
@@ -144,7 +147,6 @@ function EditFeatureProjectList(props) {
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
                                     }}
-                                    // style={{ backgroundColor: "lightgrey" }}
                                 >
                                     <div className="row m-auto">
                                         <div className="col-10 p-0 m-0 card-title">
@@ -158,7 +160,6 @@ function EditFeatureProjectList(props) {
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
                                                 title="Edit"
-                                                // className="font-weight-bold"
                                                 onClick={() =>
                                                     onClickEdit(
                                                         project.Project_ID
@@ -167,19 +168,15 @@ function EditFeatureProjectList(props) {
                                             >
                                                 {' '}
                                                 <FontAwesomeIcon
-                                                    //style={{ marginRight: 2 }}
                                                     icon={faEdit}
                                                     size="sm"
                                                 />
-                                                {/* <i className="fas fa-edit"></i> */}
                                             </span>
                                             <span
                                                 className="ml-2 text-danger"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
                                                 title="Delete"
-                                                // data-toggle="modal"
-                                                // data-target="#myModal"
                                                 onClick={() =>
                                                     onClickDelete(
                                                         project.Project_ID
@@ -187,12 +184,9 @@ function EditFeatureProjectList(props) {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    //style={{ marginRight: 2 }}
                                                     icon={faTrashAlt}
                                                     size="sm"
                                                 />
-
-                                                {/* <i className="fas fa-trash-alt"></i> */}
                                             </span>
                                         </div>
                                     </div>
@@ -226,60 +220,6 @@ function EditFeatureProjectList(props) {
                                             {ReactHtmlParser(project.Summary)}
                                         </div>
                                     </div>
-                                    {/* <h6>{project.Email}</h6>{' '}
-                                    <h6>
-                                        {
-                                            ((dateObj = new Date(project.Date)),
-                                            (dateString = dateObj.toLocaleDateString()))
-                                        }
-                                    </h6>
-                                    <span className="font-weight-bold">
-                                        Summary:
-                                    </span>{' '}
-                                    <p className="a" style={{}}>
-                                        {ReactHtmlParser(project.Summary)}
-                                    </p>
-                                    <span className="font-weight-bold">
-                                        Process:
-                                    </span>{' '}
-                                    <span
-                                        style={{
-                                            display: 'block',
-                                            height: '10px',
-                                        }}
-                                    >
-                                        {' '}
-                                        {project.Fabrication_Process}
-                                    </span>
-                                    <br />
-                                    <span className="font-weight-bold">
-                                        Material:
-                                    </span>{' '}
-                                    <span
-                                        style={{
-                                            display: 'block',
-                                            // height: '10px',
-                                        }}
-                                    >
-                                        {' '}
-                                        {project.Material}
-                                    </span>
-                                    <br />
-                                    <br /> */}
-                                    {/* <span id="readmore">
-                                        <span
-                                            className="text-primary"
-                                            href=""
-                                            onClick={() =>
-                                                onClickReadMore(
-                                                    project.Project_ID,
-                                                    project.Title
-                                                )
-                                            }
-                                        >
-                                            {'Read More..>>'}
-                                        </span>
-                                    </span> */}
                                     <div
                                         style={{
                                             display: 'flex',
@@ -300,7 +240,6 @@ function EditFeatureProjectList(props) {
                                     >
                                         <span
                                             id="readmore"
-                                            //className="text-primary"
                                         >
                                             {'Read More'}
                                         </span>
@@ -329,22 +268,6 @@ function EditFeatureProjectList(props) {
                     paddingBottom: '20px',
                 }}
             >
-                {/* <form
-                    class="example"
-                    // action="/action_page.php"
-                    style={{ margin: 'auto', maxWidth: '500px' }}
-                >
-                    <input
-                        type="text"
-                        placeholder="Search by date, manufacturing process, material"
-                        name="search2"
-                        onChange={(e) => searchSpace(e)}
-                    />
-                    <button type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </form> */}
-
                 <div
                     style={{ flex: 1, marginBottom: '20px', marginTop: '20px' }}
                 >
@@ -354,9 +277,7 @@ function EditFeatureProjectList(props) {
                             type="text"
                             title="Search"
                             placeholder="Search by date, manufacturing process, material"
-                            style={{
-                                outline: 'none',
-                            }}
+                            style={{ paddingRight: '60px' }}
                             onChange={(e) => searchSpace(e)}
                         />{' '}
                         <i id="search" className="fa fa-search"></i>

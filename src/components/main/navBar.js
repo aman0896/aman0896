@@ -82,7 +82,10 @@ function LogoutButton({ username, customerID, manufacturerID }, props) {
             >
                 {/* <img src="/projectUploads/avatar.jpg" alt="Avatar" className="avatar"></img> */}
                 <i className="fa fa-fw fa-user fa-lg"></i>
-                <span>{username.charAt(0)}</span>
+                <span
+                >
+                    {username.charAt(0)}
+                </span>
             </a>
 
             <ul className="dropdown-menu bg-primary dropdown-menu-left">
@@ -241,10 +244,10 @@ class NavBar extends Component {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse justify-content-end">
+                    <div className="collapse navbar-collapse justify-content-end mr-4">
                         <div style={{ color: 'white' }}>
                             <ul className="nav" style={{ color: 'white' }}>
-                                <li>
+                                <li className="nav-item mr-4">
                                     <Button
                                         btnName="Request for Quote"
                                         styleClass={navButton}
@@ -262,10 +265,10 @@ class NavBar extends Component {
                                         }
                                     />
                                 </li>
-                                <li className="">
+                                <li className="nav-item">
                                     <NavLink
                                         activeClassName="active"
-                                        className="nav-link"
+                                        className="nav-link pl-1"
                                         style={{ color: 'white' }}
                                         to="/manufacturer-list"
                                     >
@@ -275,7 +278,7 @@ class NavBar extends Component {
 
                                 <li className="dropdown nav-item">
                                     <a
-                                        className="nav-link"
+                                        className="nav-link pl-1"
                                         href="#"
                                         data-toggle="dropdown"
                                         style={{ color: 'white' }}
@@ -304,8 +307,8 @@ class NavBar extends Component {
                                 </li>
                                 <li className="dropdown nav-item">
                                     <a
-                                        className="nav-link"
-                                        href="/knowledgebank1"
+                                        className="nav-link pl-1"
+                                                 href="/knowledgebank1"
                                         style={{ color: 'white' }}
                                     >
                                         Knowledge Bank
@@ -351,10 +354,10 @@ class NavBar extends Component {
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li className="nav-item">
                                     <Link
                                         to="about"
-                                        className="nav-link"
+                                        className="nav-link pl-1"
                                         activeClassName="active"
                                         spy={true}
                                         hashSpy={true}

@@ -18,13 +18,6 @@ function FeatureProjectView(props) {
     var dateString;
 
     useEffect(() => {
-        // const info = localStorage.getItem("projectinfo");
-        // const projectInfo = JSON.parse(info);
-        // setdata(projectInfo);
-        // var files = JSON.parse(projectInfo.Files);
-        // setfilelist(files);
-        // console.log(filelist);
-        // console.log(projectInfo);
         const { id } = props.match.params;
         console.log(id);
         axios.post(`http://localhost:3001/project/${id}`).then((response) => {
@@ -45,8 +38,6 @@ function FeatureProjectView(props) {
     const styles = {
         width: '300px',
         height: '200px',
-        //borderStyle: 'solid',
-        //borderColor: 'lightblue',
         borderWidth: '2px',
         borderRadius: '5px',
         objectFit: 'cover',
@@ -65,28 +56,23 @@ function FeatureProjectView(props) {
             >
                 <div className="">
                     {' '}
-                    
-                        <div className="d-flex justify-content-center">
-                            {Image && (
-                                <img
-                                    src={Image.filePath}
-                                    style={{
-                                        width: '100%',
-                                        height: '400px',
-                                        border: '5px',
-                                        //  borderRight: "5px solid #555",
-                                        borderRadius: '5px',
-                                        objectFit: 'cover',
-                                        display: 'flex',
-                                        alignItems: 'center',
-
-                                        //boxShadow: '5px 5px 5px	#A9A9A9',
-                                    }}
-                                    alt=""
-                                />
-                            )}
-                        </div>
-                  
+                    <div className="d-flex justify-content-center">
+                        {Image && (
+                            <img
+                                src={Image.filePath}
+                                style={{
+                                    width: '100%',
+                                    height: '400px',
+                                    border: '5px',
+                                    borderRadius: '5px',
+                                    objectFit: 'cover',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                                alt=""
+                            />
+                        )}
+                    </div>
                     <div>
                         <h6 className="float-right text-dark mt-3">
                             {' '}
@@ -94,18 +80,13 @@ function FeatureProjectView(props) {
                         </h6>
                     </div>
                 </div>
-                <div
-                 
-                >
+                <div>
                     <div
                         style={{
                             width: '100%',
                             height: 'auto',
-
-                            // boxShadow: '1px 2px 2px	#A9A9A9',
                         }}
                     >
-                        
                         <h3 className="text-dark pl-2 pt-3 mt-1">{title}</h3>
                         <p
                             className="pl-3 pr-3 pb-3"
@@ -142,17 +123,12 @@ function FeatureProjectView(props) {
                             </div>
                         ))}
                     </div>
-                    <div
-                        className="mt-5 pl-3"
-                        //style={{ marginLeft: '50px', marginRight: '40px' }}
-                    >
+                    <div className="mt-5 pl-3">
                         <h4 className="">Fabrication Services Used</h4>
                         <div
                             style={{
                                 width: '100%',
                                 height: 'auto',
-
-                                // boxShadow: '1px 2px 2px	#A9A9A9',
                             }}
                         >
                             <div className="row">

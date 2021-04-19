@@ -64,22 +64,6 @@ class ManufacturingHubsView extends Component {
                 }}
             >
                 {console.log('sdsad', registeredHubs)}
-                {/* <form
-          class="example"
-          // action="/action_page.php"
-          style={{ margin: "auto", maxWidth: "500px" }}
-        >
-          <input
-            type="text"
-            placeholder="Search by hubs,location "
-            name="search2"
-            onChange={(e) => this.searchSpace(e)}
-          />
-
-          <button type="submit">
-            <i className="fa fa-search"></i>
-          </button>
-        </form> */}
                 <div
                     style={{ flex: 1, marginBottom: '20px', marginTop: '20px' }}
                 >
@@ -89,9 +73,7 @@ class ManufacturingHubsView extends Component {
                             type="text"
                             title="Search"
                             placeholder="Search by hubs, location, process, material"
-                            style={{
-                                outline: 'none',
-                            }}
+                            style={{ paddingRight: '60px' }}
                             onChange={(e) => this.searchSpace(e)}
                         />{' '}
                         <i id="search" className="fa fa-search"></i>
