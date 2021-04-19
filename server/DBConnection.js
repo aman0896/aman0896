@@ -480,14 +480,7 @@ app.post('/project/:id', (req, res) => {
 });
 
 app.post('/delete-project', (req, res) => {
-    //requesting value(firstname, lastname, password, email, phonenumber from registrarion page input)
-    /*   const process = req.body.process;
-  const material = req.body.material;
-  const userinfo = req.body.userinfo;
-  const date = req.body.date;
-  const title = req.body.title;
-  const summary = req.body.summary;
-  console.log("feature-project", process, material); */
+  
     const id = req.body.id;
 
     db.query(
