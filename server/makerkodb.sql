@@ -62,7 +62,7 @@ CREATE TABLE `customer` (
   `Verified` tinyint NOT NULL,
   `Profile_Image` text,
   PRIMARY KEY (`Customer_ID`,`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (38,'ashmita.promech@gmail.com','Ashmita','Gorkhali','$2b$10$OAeRE7fErccwTV6/JXnPMOFosReZwPo8W1YBwoSTf/YBAb/iNODgu',98498260088,NULL,NULL,NULL,NULL,1,'{\"fileName\":\"Picture1.png\",\"filePath\":\"/profileImage/Picture1.png\"}');
+INSERT INTO `customer` VALUES (38,'ashmita.promech@gmail.com','Ashmita','Gorkhali','$2b$10$OAeRE7fErccwTV6/JXnPMOFosReZwPo8W1YBwoSTf/YBAb/iNODgu',98498260088,NULL,NULL,NULL,NULL,1,'{\"fileName\":\"Picture1.png\",\"filePath\":\"/profileImage/Picture1.png\"}'),(39,'aman.promech@gmail.com','Aman','Sainju','$2b$10$nwpYRuvZuzifJZ0wi8DjheA9dSDitU1Rutegxdn4yDupVG.aAUlqK',9843645385,NULL,NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,6 +320,14 @@ LOCK TABLES `services` WRITE;
 INSERT INTO `services` VALUES (1,73,'[{\"selectedMaterial\":{\"Material_ID\":8,\"Material_Name\":\"PLA\",\"Service_ID\":1},\"thickness\":{\"value\":1,\"label\":\"5 mm\"},\"costUnit\":{\"value\":1,\"label\":\"Gram\"},\"unitRate\":\"10\"}]','1','1'),(1,74,'[{\"selectedMaterial\":{\"Material_ID\":8,\"Material_Name\":\"PLA\",\"Service_ID\":1},\"thickness\":{\"value\":1,\"label\":\"5 mm\"},\"costUnit\":{\"value\":1,\"label\":\"Gram\"},\"unitRate\":\"10\"},{\"selectedMaterial\":{\"Material_ID\":9,\"Material_Name\":\"ABS\",\"Service_ID\":1},\"thickness\":{\"value\":1,\"label\":\"5 mm\"},\"costUnit\":{\"value\":1,\"label\":\"Gram\"},\"unitRate\":\"10\"}]','1','1'),(2,73,'[{\"selectedMaterial\":{\"Material_ID\":1,\"Material_Name\":\"WPC Board (Wood Plastic Composite)\",\"Service_ID\":2},\"thickness\":{\"value\":1,\"label\":\"5 mm\"},\"costUnit\":{\"value\":1,\"label\":\"Gram\"},\"unitRate\":\"10\"}]','1','1');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'fabhubsdb'
+--
+
+--
+-- Dumping routines for database 'fabhubsdb'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -330,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-12 13:36:38
+-- Dump completed on 2021-04-19 17:35:43
