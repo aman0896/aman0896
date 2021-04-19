@@ -358,7 +358,7 @@ app.post('/feature-project', (req, res) => {
         }
     );
 
-    //#endregion
+    
 });
 
 app.post('/update-project', (req, res) => {
@@ -373,7 +373,7 @@ app.post('/update-project', (req, res) => {
     const fileName = req.body.fileName;
     const url = req.body.fileURL;
     const description = req.body.description;
-    //const fileList = req.body.files;
+    
     const projectID = req.body.projectID;
 
     db.query(
@@ -395,18 +395,11 @@ app.post('/update-project', (req, res) => {
         }
     );
 
-    //#endregion
+   
 });
 
 app.get('/feature-project', (req, res) => {
-    //requesting value(firstname, lastname, password, email, phonenumber from registrarion page input)
-    /*   const process = req.body.process;
-  const material = req.body.material;
-  const userinfo = req.body.userinfo;
-  const date = req.body.date;
-  const title = req.body.title;
-  const summary = req.body.summary;
-  console.log("feature-project", process, material); */
+   
 
     db.query('SELECT * FROM feature_project', (err, result) => {
         if (err) {
@@ -418,18 +411,11 @@ app.get('/feature-project', (req, res) => {
         }
     });
 
-    //#endregion
+    
 });
 
 app.post('/edit-project', (req, res) => {
-    //requesting value(firstname, lastname, password, email, phonenumber from registrarion page input)
-    /*   const process = req.body.process;
-  const material = req.body.material;
-  const userinfo = req.body.userinfo;
-  const date = req.body.date;
-  const title = req.body.title;
-  const summary = req.body.summary;
-  console.log("feature-project", process, material); */
+
     const id = req.body.id;
     console.log('id', id);
 
@@ -447,18 +433,11 @@ app.post('/edit-project', (req, res) => {
         }
     );
 
-    //#endregion
+ 
 });
 
 app.post('/project/:id', (req, res) => {
-    //requesting value(firstname, lastname, password, email, phonenumber from registrarion page input)
-    /*   const process = req.body.process;
-  const material = req.body.material;
-  const userinfo = req.body.userinfo;
-  const date = req.body.date;
-  const title = req.body.title;
-  const summary = req.body.summary;
-  console.log("feature-project", process, material); */
+    
     const id = req.params.id;
     console.log('id', id);
 
@@ -476,7 +455,7 @@ app.post('/project/:id', (req, res) => {
         }
     );
 
-    //#endregion
+    
 });
 
 app.post('/delete-project', (req, res) => {
@@ -493,7 +472,7 @@ app.post('/delete-project', (req, res) => {
         }
     );
 
-    //#endregion
+
 });
 
 //#region verifying OTP And Updating Current User information by adding otp
@@ -589,13 +568,7 @@ app.post('/login', (req, res) => {
                             console.log('match', response);
                             if (response) {
                                 let userInfo = result;
-                                // if (userInfo) {
-                                //   var date = new Date();
-                                //   date.setFullYear(date.getFullYear() + 1);
-                                //   document.cookie = `userInfo = ${JSON.stringify(
-                                //     userInfo
-                                //   )}; expires= ${date.toUTCString()}; path=/`; //Storing login info value in Cookie
-                                //}
+                               
                                 res.send({
                                     userInfo,
                                     loggedIn: true,
@@ -660,18 +633,7 @@ app.post('/login', (req, res) => {
         }
     );
 });
-// app.get("/login", (req, res) => {
-//   req.session.user = loginInfo;
-//   if (req.session.user) {
-//     res.send({
-//       loggedIn: true,
-//       user: req.session.user,
-//       username: req.session.user[0].firstname,
-//     });
-//   } else {
-//     res.send({ loggedIn: false });
-//   }
-// });
+
 
 app.post('/validation-page', (req, res) => {
     const sql = 'SELECT * FROM cadfiles WHERE uploadedby = ?';
