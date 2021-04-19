@@ -130,8 +130,8 @@ class HomePage extends Component {
               </Link>
             </div> */}
                         </div>
-                        <Link
-                            to="/manufacturer-signup"
+                        <a
+                            href="/manufacturer-signup"
                             className="d-flex justify-content-center pr-5 text-primary pb-4"
                             style={{
                                 textDecoration: 'underline',
@@ -142,7 +142,7 @@ class HomePage extends Component {
                             }}
                         >
                             Are you a Maker? Sign Up to build your portfolio
-                        </Link>
+                        </a>
                     </div>
                     <div style={{ backgroundColor: 'rgba(16, 14, 40, 0.9)' }}>
                         <div className="container-fluid row">
