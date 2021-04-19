@@ -126,15 +126,7 @@ class Editfeature extends Component {
         });
     };
 
-    onDeleteClick = (filelist) => {
-        const filteredData = image.filter((mdata) => {
-            if (mdata.filePath == filelist) {
-                console.log('filtered');
-                return mdata;
-            }
-        });
-        console.log(filteredData);
-    };
+  
     handleImageOnChange = (e) => {
         const formData = new FormData();
         const files = e.target.files;

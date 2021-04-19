@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik } from 'formik';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import './feature.css';
+import Axios from 'axios';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
