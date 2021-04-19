@@ -114,11 +114,7 @@ function Routing() {
                             component={ManufacturerSignup}
                         />
                         <Route path="/technology" component={Technology} />
-                        {/* <Route
-              path="/manufacturerdetail"
-              component={ManufacturerViewProfile}
-            /> */}
-                        {/* <Route path="/demo" component={OpenStreet} /> */}
+
                         <Route
                             path="/feature-project"
                             exact
@@ -142,7 +138,7 @@ function Routing() {
                             path="/feature-project/:id/:title"
                             component={DetailFeature}
                         />
-                        {/* <Route path="/demo" component={demo} /> */}
+                        <Route path="/demo" component={demo} />
                         <Route
                             path="/feature-project"
                             component={featureProject}

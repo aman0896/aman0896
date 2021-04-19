@@ -72,6 +72,19 @@ class HomePage extends Component {
                                 locally?
                             </p>
                         </div>
+                        <Link
+                            to="/demo"
+                            className="d-flex justify-content-center pr-5 text-primary pb-4"
+                            style={{
+                                textDecoration: 'underline',
+                                color: '#0069d9',
+
+                                fontSize: '20px',
+                                fontStyle: 'italic',
+                            }}
+                        >
+                            Learn How to place orders
+                        </Link>
                     </div>
                 </div>
                 <div
