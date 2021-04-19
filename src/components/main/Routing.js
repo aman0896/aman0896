@@ -42,12 +42,7 @@ import CustomerOrderStatus from '../orderstatus/CustomerOrderStatus';
 import ManufacturerOrderStatus from '../orderstatus/ManufacturerOrderStatus';
 import EditFeatureProjectList from '../featureProject/EditFeatureProjectList';
 
-function Routing() {
-    if (GetCookiesInfo() != undefined) {
-        const { userName, loggedIn } = GetCookiesInfo();
-        console.log('loggedIn', loggedIn);
-        var isAuth = loggedIn;
-    }
+function Routing({ isAuth, currentUser }) {
     return (
         <div>
             <Modal
@@ -71,7 +66,7 @@ function Routing() {
             <Router>
                 <div className="p-4">
                     {' '}
-                    <NavBar />
+                    <NavBar isAuth={isAuth} currentUser={currentUser} />
                 </div>
                 <div>
                     <Switch>

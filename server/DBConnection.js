@@ -1,60 +1,43 @@
 const express = require('express');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
-const bodyparser = require('body-parser');
 const cors = require('cors');
 const fileUPload = require('express-fileUpload');
 const path = require('path');
-const { Console } = require('console');
 const bcrypt = require('bcrypt');
 const app = express();
 const saltRound = 10;
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
 var fs = require('fs');
+const jwt = require('jsonwebtoken');
+const projectPath = path.dirname(process.cwd());
+require('dotenv').config({ path: path.join(projectPath, '.env') });
 
 app.use(express.json());
 app.use(
     cors({
         origin: ['http://localhost:3000'],
-        method: ['GET', 'POST'],
         credentials: true,
     })
 );
 app.use(fileUPload());
 app.use(cookieParser());
-app.use(
-    session({
-        key: 'userId',
-        secret: 'subscribe',
-        resave: false,
-        saveUninitialized: false,
-        //cookie: { expires: 60 * 60 * 24 },
-    })
-);
-
-app.use(bodyparser.urlencoded({ extended: false }));
-app.use(bodyparser.json());
 
 const localIpUrl = require('local-ip-url');
-const { DataUsageSharp, DataUsage } = require('@material-ui/icons');
-const { response } = require('express');
 const ipAddress = localIpUrl('public');
 console.log(ipAddress);
 
 //#region variable define
 var otp = null;
 var email = null;
-var fabricationProcess = '';
-
-const projectPath = path.dirname(process.cwd());
+const JWT_AUTH_TOKEN = process.env.JWT_AUTH_TOKEN;
 //#endregion
 
 //#region databaseConnection
 const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
-    password: '123456what@',
+    password: 'fabhubs',
     database: 'fabhubsdb',
 });
 
@@ -507,7 +490,7 @@ app.post('/delete-project', (req, res) => {
 app.post('/verify', (req, res) => {
     const inputOtp = req.body.otp;
     const email = req.body.email;
-    console.log('user', email,otp);
+    console.log('user', email, otp);
     if (inputOtp != null && inputOtp == otp) {
         db.query(
             'UPDATE customer SET Verified =? WHERE email = ?',
@@ -568,7 +551,8 @@ app.post('/new-password', (req, res) => {
 app.post('/login', (req, res) => {
     email = req.body.email;
     const password = req.body.password;
-    console.log('email', email);
+    var date = new Date();
+    date.setHours(date.getHours() + 1);
 
     db.query(
         'SELECT * FROM customer WHERE Email =?',
@@ -593,21 +577,40 @@ app.post('/login', (req, res) => {
                         password,
                         result[0].Password,
                         (error, response) => {
-                            console.log('match', response);
                             if (response) {
-                                let userInfo = result;
-                                // if (userInfo) {
-                                //   var date = new Date();
-                                //   date.setFullYear(date.getFullYear() + 1);
-                                //   document.cookie = `userInfo = ${JSON.stringify(
-                                //     userInfo
-                                //   )}; expires= ${date.toUTCString()}; path=/`; //Storing login info value in Cookie
-                                //}
-                                res.send({
-                                    userInfo,
+                                let userInfo = {
+                                    uid: result[0].Customer_ID,
                                     loggedIn: true,
                                     userStatus: 'client',
-                                });
+                                };
+                                const accessToken = jwt.sign(
+                                    { data: userInfo },
+                                    JWT_AUTH_TOKEN
+                                );
+                                console.log('line-591', accessToken);
+                                res.status(202)
+                                    .cookie('uid', accessToken, {
+                                        sameSite: 'strict',
+                                        path: '/',
+                                        expires: date,
+                                        httpOnly: false,
+                                    })
+                                    .send({ msg: 'login Success' });
+                                //#region old_code
+                                // let userInfo = result;
+                                // // if (userInfo) {
+                                // //   var date = new Date();
+                                // //   date.setFullYear(date.getFullYear() + 1);
+                                // //   document.cookie = `userInfo = ${JSON.stringify(
+                                // //     userInfo
+                                // //   )}; expires= ${date.toUTCString()}; path=/`; //Storing login info value in Cookie
+                                // //}
+                                // res.send({
+                                //     userInfo,
+                                //     loggedIn: true,
+                                //     userStatus: 'client',
+                                // });
+                                //#endregion
                             } else {
                                 res.send({
                                     message: 'email or password did not match',
@@ -1601,6 +1604,46 @@ app.post('/update-services/:id', (req, res) => {
     }
 });
 
+//#endregion
+
+//#region get cookie - userinfo
+app.post('/get-cookie-info', (req, res) => {
+    const accessToken = req.cookies.uid;
+    jwt.verify(accessToken, JWT_AUTH_TOKEN, (err, userInfo) => {
+        if (userInfo) {
+            res.send({ userInfo: userInfo });
+        } else {
+            res.send({ msg: 'user session ended' });
+        }
+    });
+});
+//#endregion
+
+//#region userLogot - clear cookie
+app.post('/logout', (req, res) => {
+    res.status(202).clearCookie('uid').send('cookies delete');
+});
+//#endregion
+
+//#region get customerInfo
+app.post('/get-customer-info', (req, res) => {
+    const customerID = req.body.uid;
+    console.log(customerID);
+
+    db.query(
+        'SELECT * FROM customer WHERE Customer_ID = ?',
+        [customerID],
+        (err, customerInfo) => {
+            if (err) {
+                res.send({ err: err });
+                console.log(err);
+            } else {
+                console.log(customerInfo);
+                res.send(customerInfo);
+            }
+        }
+    );
+});
 //#endregion
 
 app.listen(3001, '127.0.0.1', () => {

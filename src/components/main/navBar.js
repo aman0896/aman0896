@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../global/Button';
 import { Link, animateScroll as scroll } from 'react-scroll';
+import axios from 'axios';
 
 //import PlaceOrder from "./placeOrder";
 import './navbar.css';
@@ -9,7 +10,7 @@ import './navbar.css';
 import Axios from 'axios';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
-import onGetInstantBtnClick, { GetCookiesInfo } from '../global/GlobalFunction';
+import { GetCookiesInfo } from '../global/GlobalFunction';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
@@ -82,10 +83,7 @@ function LogoutButton({ username, customerID, manufacturerID }, props) {
             >
                 {/* <img src="/projectUploads/avatar.jpg" alt="Avatar" className="avatar"></img> */}
                 <i className="fa fa-fw fa-user fa-lg"></i>
-                <span
-                >
-                    {username.charAt(0)}
-                </span>
+                <span>{username.charAt(0)}</span>
             </a>
 
             <ul className="dropdown-menu bg-primary dropdown-menu-left">
@@ -163,21 +161,38 @@ class NavBar extends Component {
         window.location.href = '/#technology';
     };
 
-    componentDidMount() {
-        Axios.defaults.withCredentials = true;
-        if (GetCookiesInfo() != undefined) {
-            const {
-                userName,
-                loggedIn,
-                customerID,
-                manufacturerID,
-            } = GetCookiesInfo();
-            this.setState({
-                username: userName,
-                loggedIn: loggedIn,
-                customerID: customerID,
-                manufacturerID: manufacturerID,
-            });
+    async componentDidMount() {
+        console.log('userInfo', this.props);
+        const { currentUser, isAuth } = this.props;
+        // const uid = cookies.get('uid');
+        // const accessToken = uid;
+        // console.log(accessToken);
+        // const { REACT_APP_JWT_AUTH_TOKEN } = process.env;
+        // console.log('token', REACT_APP_JWT_AUTH_TOKEN);
+        // jwt.verify(accessToken, REACT_APP_JWT_AUTH_TOKEN, (err, userInfo) => {
+        //     console.log('hello for cookie', err);
+        //     if (userInfo) {
+        //         console.log('user', userInfo);
+        //     }
+        // });
+        var userInfo = undefined;
+        if (currentUser && isAuth) {
+            this.setState({ loggedIn: isAuth });
+            if (currentUser) {
+                await axios
+                    .post('http://localhost:3001/get-customer-info', {
+                        uid: currentUser,
+                    })
+                    .then((response) => {
+                        if (response) {
+                            userInfo = response.data;
+                        }
+                    });
+            }
+        }
+        if (userInfo != undefined) {
+            const { First_Name } = userInfo[0];
+            this.setState({ username: First_Name });
         }
     }
     GetPageName() {
@@ -257,12 +272,7 @@ class NavBar extends Component {
                                                 : false
                                         }
                                         toggle="modal"
-                                        target={this.state.showModal}
-                                        onClick={() =>
-                                            this.setState({
-                                                showModal: onGetInstantBtnClick(),
-                                            })
-                                        }
+                                        target="#placeOrderModal"
                                     />
                                 </li>
                                 <li className="">

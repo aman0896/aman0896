@@ -1,11 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './feature.css';
-import Carousel from 'react-bootstrap/Carousel';
-import { map } from 'jquery';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ImageZoom from 'react-medium-image-zoom';
-import { ModalTitle } from 'react-bootstrap';
 import ReactHtmlParser from 'react-html-parser';
 
 function FeatureProjectView(props) {
@@ -65,28 +61,26 @@ function FeatureProjectView(props) {
             >
                 <div className="">
                     {' '}
-                    
-                        <div className="d-flex justify-content-center">
-                            {Image && (
-                                <img
-                                    src={Image.filePath}
-                                    style={{
-                                        width: '100%',
-                                        height: '400px',
-                                        border: '5px',
-                                        //  borderRight: "5px solid #555",
-                                        borderRadius: '5px',
-                                        objectFit: 'cover',
-                                        display: 'flex',
-                                        alignItems: 'center',
+                    <div className="d-flex justify-content-center">
+                        {Image && (
+                            <img
+                                src={Image.filePath}
+                                style={{
+                                    width: '100%',
+                                    height: '400px',
+                                    border: '5px',
+                                    //  borderRight: "5px solid #555",
+                                    borderRadius: '5px',
+                                    objectFit: 'cover',
+                                    display: 'flex',
+                                    alignItems: 'center',
 
-                                        //boxShadow: '5px 5px 5px	#A9A9A9',
-                                    }}
-                                    alt=""
-                                />
-                            )}
-                        </div>
-                  
+                                    //boxShadow: '5px 5px 5px	#A9A9A9',
+                                }}
+                                alt=""
+                            />
+                        )}
+                    </div>
                     <div>
                         <h6 className="float-right text-dark mt-3">
                             {' '}
@@ -94,9 +88,7 @@ function FeatureProjectView(props) {
                         </h6>
                     </div>
                 </div>
-                <div
-                 
-                >
+                <div>
                     <div
                         style={{
                             width: '100%',
@@ -105,7 +97,6 @@ function FeatureProjectView(props) {
                             // boxShadow: '1px 2px 2px	#A9A9A9',
                         }}
                     >
-                        
                         <h3 className="text-dark pl-2 pt-3 mt-1">{title}</h3>
                         <p
                             className="pl-3 pr-3 pb-3"
