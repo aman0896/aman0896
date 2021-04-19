@@ -52,10 +52,10 @@ const projectPath = path.dirname(process.cwd());
 
 //#region databaseConnection
 const db = mysql.createConnection({
-    user: 'root',
-    host: 'localhost',
-    password: 'fabhubs',
-    database: 'fabhubsdb',
+    user: 'krkmlzmy_fabhubs',
+    host: 'itsnpl.com',
+    password: '123456what@',
+    database: 'krkmlzmy_fabhubsdb',
 });
 
 db.connect((err) => {
