@@ -65,7 +65,6 @@ function Routing({ isAuth, currentUser }) {
             {/* <div className="p-4"></div> */}
             <Router>
                 <div className="p-4">
-                    {' '}
                     <NavBar isAuth={isAuth} currentUser={currentUser} />
                 </div>
                 <div>
