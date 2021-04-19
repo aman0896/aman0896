@@ -54,7 +54,7 @@ const projectPath = path.dirname(process.cwd());
 const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
-    password: '123456what@',
+    password: 'fabhubs',
     database: 'fabhubsdb',
 });
 
@@ -507,7 +507,7 @@ app.post('/delete-project', (req, res) => {
 app.post('/verify', (req, res) => {
     const inputOtp = req.body.otp;
     const email = req.body.email;
-    console.log('user', email,otp);
+    console.log('user', email, otp);
     if (inputOtp != null && inputOtp == otp) {
         db.query(
             'UPDATE customer SET Verified =? WHERE email = ?',
