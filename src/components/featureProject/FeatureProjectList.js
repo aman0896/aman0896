@@ -1,15 +1,9 @@
 import React from 'react';
-
 import '../main/style.css';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import './feature.css';
-import { useHistory, useLocation } from 'react-router-dom';
-import '../form/registrationPage.css';
-
 import ReactHtmlParser from 'react-html-parser';
-import { GetCookiesInfo } from '../global/GlobalFunction';
-import axios from 'axios';
 import '../global/card.css';
 
 const localIpUrl = require('local-ip-url');
@@ -20,12 +14,15 @@ function FeatureProjectList(props) {
     const [search, setsearch] = useState();
     const [flag, setflag] = useState(false);
     const [path, setpath] = useState();
-
     var dateObj;
     var dateString;
     var projectList;
     var bool;
     var filterProjectList;
+    const [shadow, setShadow] = useState('1px 2px 5px	#A9A9A9');
+    const [ID, setID] = useState();
+    const [selected, setSelected] = useState(false);
+
     useEffect(() => {
         Axios.get(`http://${ipAddress}:3001/feature-project`).then(
             (response) => {
@@ -36,7 +33,20 @@ function FeatureProjectList(props) {
             }
         );
     }, []);
+    const onMouseEnter = (id) => {
+        console.log('id', id);
+        setID(id);
+        // if (featureProject.Project_ID == id) setShadow('1px 3px 20px	#A9A9A9');
+        //setColor("rgb(240,240,240)");
+    };
+    const onMouseLeave = (id) => {
+        setID(0);
+        setShadow('1px 2px 5px	#A9A9A9');
+    };
+
     const onClickReadMore = (ID, title) => {
+        setID(ID);
+        //setSelected(true);
         const { match } = props;
         const name = title;
         const id = ID;
@@ -48,8 +58,6 @@ function FeatureProjectList(props) {
         let keyword = event.target.value;
         setsearch(keyword);
     };
-
-    let FilesData = '';
     var list = featureProject
         .filter((data) => {
             if (search == null) return data;
@@ -81,26 +89,30 @@ function FeatureProjectList(props) {
                     <div
                         className="card "
                         style={{
-                            //background: "#3e3d3d",
                             width: '300px',
-                            //borderRadius: "2%",
-                            height: '450px',
-                            // backgroundColor: "lightgray",
-                            // border: "5pt solid white",
+                            height: '480px',
                             borderRadius: '5px',
-                            boxShadow: '2px 2px 2px	#A9A9A9',
+
+                            boxShadow:
+                                project.Project_ID == ID
+                                    ? '10px 3px 20px #A9A9A9'
+                                    : shadow,
+                            borderColor:
+                                project.Project_ID == ID ? '#A9A9A9' : '',
+                            borderWidth: project.Project_ID == ID ? '3px' : '',
                         }}
+                        onMouseEnter={() => onMouseEnter(project.Project_ID)}
+                        onMouseLeave={() => onMouseLeave(project.Project_ID)}
+                        onClick={() =>
+                            onClickReadMore(project.Project_ID, project.Title)
+                        }
                     >
                         <div>
-                            {console.log(flag)}
-
                             <div>
                                 <img
                                     className="card-img-top"
                                     src={ImageFilePath}
                                     alt={ImageFileName}
-                                    //width={300}
-                                    // height={200}
                                     style={{
                                         width: '100%',
                                         height: '180px',
@@ -111,7 +123,7 @@ function FeatureProjectList(props) {
                                 <div
                                     className="p-2"
                                     style={{
-                                        maxHeight: '250px',
+                                        maxHeight: '480px',
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
                                     }}
@@ -131,13 +143,14 @@ function FeatureProjectList(props) {
                                         <div className="sub-title">
                                             Process:
                                         </div>
-                                        <div className="body-text">
+                                        <div className="body-text mb-3">
                                             {project.Fabrication_Process}
                                         </div>
+
                                         <div className="sub-title">
                                             Material:
                                         </div>
-                                        <div className="material-title">
+                                        <div className="material-title mb-3">
                                             <div className="body-text">
                                                 {project.Material}
                                             </div>
@@ -168,12 +181,7 @@ function FeatureProjectList(props) {
                                             )
                                         }
                                     >
-                                        <span
-                                            id="readmore"
-                                            //className="text-primary"
-                                        >
-                                            {'Read More'}
-                                        </span>
+                                        <span id="readmore">{'Read More'}</span>
                                         <span className="mt-1 ml-1">
                                             {' '}
                                             <i className="fas fa-angle-double-right fa-1x"></i>
@@ -188,7 +196,7 @@ function FeatureProjectList(props) {
         });
 
     return (
-        <div style={{ backgroundColor: 'lightgray', minHeight: '95vh' }}>
+        <div style={{ minHeight: '95vh' }}>
             <div
                 className="style"
                 style={{
@@ -197,168 +205,23 @@ function FeatureProjectList(props) {
                     overflowX: 'hidden',
                     paddingTop: '20px',
                     paddingBottom: '20px',
+                    minHeight: '95vh'
                 }}
             >
-                {/* <form
-                    class="example"
-                    // action="/action_page.php"
-                    style={{ margin: 'auto', maxWidth: '500px' }}
-                >
-                    <input
-                        type="text"
-                        placeholder="Search by date, manufacturing process, material"
-                        name="search2"
-                        onChange={(e) => searchSpace(e)}
-                    />
-                    <button type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </form> 
-                {/* <div
-                    className="bar"
-                    style={{ margin: 'auto', maxWidth: '500px' }}
-                >
-                    <input
-                        class="searchbar"
-                        type="text"
-                        title="Search"
-                        placeholder="Search by date, manufacturing process, material"
-                    ></input>
-                    <i class="fa fa-search" id="search"></i>
-                </div> */}
-
-                {/* <div class="row">
-                    <div class="col-md-12 col-xs-12">
-                        <div class="searchbar">
-                            <div class="form-group ">
-                                <input
-                                    type="text"
-                                    className="bar"
-                                    placeholder="Search by date, manufacturing process, material"
-                                    style={{
-                                        width: '400px',
-                                        height: '44px',
-                                        outline: 'none',
-                                    }}
-                                    className="form-control"
-                                />
-                                <a href="#">
-                                    <i
-                                        style={{
-                                           // marginLeft: '1px',
-                                            top: '-30px',
-                                        }}
-                                        className="fa fa-search"
-                                    ></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-
-                <div
-                    style={{ flex: 1, marginBottom: '20px', marginTop: '20px' }}
-                >
+                <div style={{ marginBottom: '20px', marginTop: '20px' }}>
                     <div id="searchbar">
                         <input
                             className="form-control"
                             type="text"
                             title="Search"
                             placeholder="Search by date, manufacturing process, material"
-                            style={{
-                                outline: 'none',
-                            }}
                             onChange={(e) => searchSpace(e)}
+                            style={{ paddingRight: '60px' }}
                         />{' '}
                         <i id="search" className="fa fa-search"></i>
                     </div>
                 </div>
-
-                <div className="row pl-4 pt-2">
-                    {list}
-                    {/* {featureProject.map((item) => (
-          <div className="col-xs p-2" key={item.id}>
-            {item.Files != null
-              ? console.log(item.Files[0].fileName)
-              : console.log("null")}
-            <div
-              className="card"
-              style={{
-                //background: "#3e3d3d",
-                width: "300px",
-                //borderRadius: "2%",
-                height: "555px",
-                backgroundColor: "#b3d9ff",
-                border: "2px solid",
-                borderRadius: "3%",
-                boxShadow: "2px 2px 2px	#A9A9A9",
-              }}
-            >
-              <div>
-                <div>
-                  <img
-                    className="card-img-top p-2"
-                    src={item.FileURL}
-                    alt={item.FileName}
-                    style={{
-                      width: "100%",
-                      height: "200px",
-                      borderBottom: "2px solid",
-                      borderRight: "2px solid",
-                      borderRadius: "3%",
-                      boxShadow: "5px 5px 5px	#A9A9A9",
-                    }}
-                  />
-                  <div className="pl-2 pt-2 ">
-                    <h5
-                      style={{
-                        // color: "white",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {item.title}
-                    </h5>
-                    <h6>{item.userinfo}</h6>{" "}
-                    <h6>
-                      {
-                        ((dateObj = new Date(item.date)),
-                        (dateString = dateObj.toLocaleDateString()))
-                      }
-                    </h6>
-                    <span className="font-weight-bold">Summary:</span>{" "}
-                    <p className="a" style={{ height: "60px" }}>
-                      {ReactHtmlParser(item.summary)}
-                    </p>
-                    <span className="font-weight-bold">Process:</span>{" "}
-                    <span style={{ display: "block", height: "10px" }}>
-                      {" "}
-                      {item.process}
-                    </span>
-                    <br />
-                    <span className="font-weight-bold">Material:</span>{" "}
-                    <span style={{ display: "block", height: "10px" }}>
-                      {" "}
-                      {item.material}
-                    </span>
-                    <br />
-                    <br />
-                  </div>
-                </div>
-              </div>
-              <span id="readmore">
-                <text
-                  className="text-primary"
-                  href=""
-                  onClick={() => onClickReadMore(item.id)}
-                >
-                  {"Read More..>>"}
-                </text>
-              </span>
-            </div>
-          </div>
-        ))} */}
-                </div>
-                {/* <div style={{backgroundColor:"lightgray",paddingTop:"30px"}}></div> */}
+                <div className="row pl-4 pt-2">{list}</div>
             </div>
         </div>
     );

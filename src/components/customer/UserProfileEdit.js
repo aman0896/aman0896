@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import FormTextBox, { PasswordField } from '../global/TextBox';
 import './UserProfile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useHistory } from 'react-router';
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
@@ -21,9 +23,11 @@ const EditUserProf = (props) => {
         userStatus,
     } = GetCookiesInfo();
     const history = useHistory();
-    const [imagePath, setImagePath] = useState();
+    const [imagePath, setImagePath] = useState(
+        '/profileImage/3f9470b34a8e3f526dbdb022f9f19cf7.jpg'
+    );
     const [error, setError] = useState();
-   const { id } = props.match.params;
+    const { id } = props.match.params;
     console.log(id);
 
     //setUploadedImage(Image);
@@ -110,6 +114,7 @@ const EditUserProf = (props) => {
                         <div
                             className="user-profile"
                             style={{ borderRadius: '5px 10px 15px 20px' }}
+                            id="image"
                         >
                             <div
                                 className="user-avatar"
@@ -134,13 +139,26 @@ const EditUserProf = (props) => {
                                             aria-hidden="true"
                                         ></i>
                                         <span>Change Image</span>
-                                        <input
-                                            className="avatar-file h-100 w-100"
-                                            type="file"
-                                            name="file"
-                                            accept="image/*"
-                                            onChange={handleOnchangeimage}
-                                        />
+                                    </div>
+                                    <div className="overlay">
+                                        <span
+                                            //href="#"
+                                            className="icon"
+                                            //title="User Profile"
+                                        >
+                                            <FontAwesomeIcon
+                                                //style={{ marginRight: 2 }}
+                                                icon={faCamera}
+                                                size="sm"
+                                            />
+                                            <input
+                                                className="avatar-file h-100 w-100"
+                                                type="file"
+                                                name="file"
+                                                accept="image/*"
+                                                onChange={handleOnchangeimage}
+                                            />
+                                        </span>
                                     </div>
                                 </a>
 

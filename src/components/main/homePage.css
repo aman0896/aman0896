@@ -11,29 +11,32 @@
 } */
 
 .view {
-    height: auto;
-    /* background: rgb(58, 57, 57); */
-    color: #171717;
+  height: auto;
+  /* background: rgb(58, 57, 57); */
+  color: #171717;
 }
 
 .textHeading {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15;
-    color: white;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15;
+  color: white;
 
-    text-align-last: center;
+  text-align-last: center;
 }
 .homepage-content {
-    font-size: 20px;
-    text-align: center;
-    padding-left: 100px;
-    padding-right: 100px;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.699);
-    margin-left: 100px;
-    margin-right: 100px;
+  font-size: 20px;
+  text-align: center;
+  padding-left: 100px;
+  padding-right: 100px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.699);
+  margin-left: 100px;
+  margin-right: 100px;
+  
+  
 }
+
 
 /* .line {
   position: absolute;
@@ -45,8 +48,8 @@
   transform: rotate(90deg);
 } */
 .circle {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
 /* .logo {
@@ -60,11 +63,12 @@
 } */
 
 .text {
-    text-align: center;
-    padding-left: 100px;
-    padding-right: 100px;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.699);
-    margin-left: 100px;
-    margin-right: 100px;
+  font-size: 120%;
+  text-align: center;
+  padding-left: 100px;
+  padding-right: 100px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.699);
+  margin-left: 100px;
+  margin-right: 100px;
 }
