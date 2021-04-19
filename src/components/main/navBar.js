@@ -61,9 +61,11 @@ function LoginButton(props) {
 
 function LogoutButton({ username, customerID, manufacturerID }, props) {
     const onclick = () => {
-        document.cookie = `userInfo = ; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/`; //Clearing the Cookie information
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:3001/logout').then((response) => {
+            console.log(response);
+        });
         window.location.href = '/';
-        this.setState({ loggedIn: false });
     };
     console.log(props);
     const onClickEditProfileClient = () => {
