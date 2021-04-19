@@ -41,6 +41,7 @@ import EditManufacturerProfile from '../manufacturer/MakerProfileEdit';
 import CustomerOrderStatus from '../orderstatus/CustomerOrderStatus';
 import ManufacturerOrderStatus from '../orderstatus/ManufacturerOrderStatus';
 import EditFeatureProjectList from '../featureProject/EditFeatureProjectList';
+import KnowledgeBank1 from '../knowledgebank/KnowledgeBank1';
 
 function Routing() {
     if (GetCookiesInfo() != undefined) {
@@ -215,6 +216,11 @@ function Routing() {
                             component={EditFeatureProjectList}
                             isAuth={isAuth}
                             redirectionPage="/login"
+                        />
+                        <Route
+                            path="/knowledgebank1"
+                            exact
+                            component={KnowledgeBank1}
                         />
                     </Switch>
                 </div>

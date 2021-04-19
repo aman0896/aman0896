@@ -82,10 +82,7 @@ function LogoutButton({ username, customerID, manufacturerID }, props) {
             >
                 {/* <img src="/projectUploads/avatar.jpg" alt="Avatar" className="avatar"></img> */}
                 <i className="fa fa-fw fa-user fa-lg"></i>
-                <span
-                >
-                    {username.charAt(0)}
-                </span>
+                <span>{username.charAt(0)}</span>
             </a>
 
             <ul className="dropdown-menu bg-primary dropdown-menu-left">
@@ -308,34 +305,53 @@ class NavBar extends Component {
                                 <li className="dropdown nav-item">
                                     <a
                                         className="nav-link"
-                                        href="#"
-                                        data-toggle="dropdown"
+                                        href="/knowledgebank1"
                                         style={{ color: 'white' }}
                                     >
                                         Knowledge Bank
                                     </a>
                                     <ul className="dropdown-menu bg-primary">
                                         <li>
-                                            <a
+                                            <Link
+                                                to="3D-Printing"
                                                 className="dropdown-item  no-bottom-border"
-                                                href="/3d-printing"
+                                                activeClassName="active"
+                                                spy={true}
+                                                hashSpy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-80}
+                                                style={{ color: 'white' }}
+                                                onClick={(e) => {
+                                                    window.location.href =
+                                                        '/knowledgebank1/#3D-Printing';
+                                                }}
                                             >
-                                                {' '}
                                                 3D PRINTING
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
+                                                to="Vaccume-Forming"
                                                 className="dropdown-item  no-bottom-border"
-                                                href="/vacuum-forming"
+                                                activeClassName="active"
+                                                spy={true}
+                                                hashSpy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-80}
+                                                style={{ color: 'white' }}
+                                                onClick={(e) => {
+                                                    window.location.href =
+                                                        '/knowledgebank1/#Vaccume-Forming';
+                                                }}
                                             >
-                                                {' '}
-                                                VACCUM FORMING
-                                            </a>
+                                                Vaccum Forming
+                                            </Link>
                                         </li>
                                     </ul>
                                 </li>
-                                <li className="">
+                                <li>
                                     <Link
                                         to="about"
                                         className="nav-link"
