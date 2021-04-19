@@ -2,7 +2,7 @@ import { imageOverlay } from 'leaflet';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
-import logo from '../assests/uk_aid.png';
+
 import Data from './Data.json';
 
 const styles = {
