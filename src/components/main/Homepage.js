@@ -87,7 +87,7 @@ class HomePage extends Component {
                             toggle="modal"
                             target={this.state.showModal}
                             onClick={() =>
-                                (window.location.href = '/manufacturer')
+                                (window.location.href = '/knowledgebank1')
                             }
                         />
                     </div>
