@@ -43,7 +43,7 @@ function EditManufacturerProfile(props) {
     //#region get_service_data_from_db
     useEffect(() => {
         axios
-            .post(`http://localhost:3001/manufacturer/${id}`)
+            .post(`http://${window.host}/manufacturer/${id}`)
             .then((response) => {
                 if (response.data) {
                     const { hub, services } = response.data;
@@ -88,7 +88,7 @@ function EditManufacturerProfile(props) {
         formData.append('id', manufacturerID);
         console.log(file, formData);
         axios
-            .post(`http://localhost:3001/imageupload`, formData, {
+            .post(`http://${window.host}/imageupload`, formData, {
                 document: 'documents',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -107,7 +107,7 @@ function EditManufacturerProfile(props) {
                     console.log(data);
 
                     axios
-                        .post(`http://${ipAddress}:3001/changeimage`, {
+                        .post(`http://${window.host}/changeimage`, {
                             id: manufacturerID,
                             image: data,
                             userStatus: userStatus,
@@ -174,7 +174,7 @@ function EditManufacturerProfile(props) {
     //#region on Save Changes_Manufacturer_Services
     const OnSaveChange = () => {
         axios
-            .post(`http://localhost:3001/update-services/${id}`, {
+            .post(`http://${window.host}/update-services/${id}`, {
                 hubService: hubService,
             })
             .then((response) => {
@@ -282,7 +282,7 @@ function EditManufacturerProfile(props) {
                                             console.log('submit');
                                             axios
                                                 .post(
-                                                    `http://${ipAddress}:3001/editManufacturerProfile`,
+                                                    `http://${window.host}/editManufacturerProfile`,
                                                     {
                                                         id: manufacturerID,
                                                         contactPerson:
@@ -528,7 +528,7 @@ function EditManufacturerProfile(props) {
                                         console.log(values.email);
                                         axios
                                             .post(
-                                                `http://${ipAddress}:3001/change-password`,
+                                                `http://${window.host}/change-password`,
                                                 {
                                                     new_password:
                                                         values.new_password,
@@ -654,7 +654,7 @@ function EditManufacturerProfile(props) {
                                     setTimeout(() => {
                                         axios
                                             .post(
-                                                `http://${ipAddress}:3001/update-details`,
+                                                `http://${window.host}/update-details`,
                                                 {
                                                     briefDescriptiom:
                                                         values.briefDescriptiom,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import Axios from 'axios';
+import axios from 'axios';
 import MfgProcessViewSelected, {
     ExpandTable,
 } from '../manufacturer/MfgProcessViewSelected';
@@ -33,30 +33,32 @@ class ManufacturerSignup extends Component {
 
         formData.append('file', file[0]);
         formData.append('document', 'documents');
-        Axios.post(`http://${ipAddress}:3001/imageupload`, formData, {
-            document: 'documents',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }).then((response) => {
-            if (response.data.msg) console.log(response.data.msg);
-            else {
-                console.log(response.data);
-                var data = JSON.stringify(response.data);
-                //var int = typeof data;
-                //console.log(data, typeof data);
-                this.setState({ uploadedFiles: data });
-            }
+        axios
+            .post(`http://${window.host}/imageupload`, formData, {
+                document: 'documents',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                if (response.data.msg) console.log(response.data.msg);
+                else {
+                    console.log(response.data);
+                    var data = JSON.stringify(response.data);
+                    //var int = typeof data;
+                    //console.log(data, typeof data);
+                    this.setState({ uploadedFiles: data });
+                }
 
-            // this.setState({
-            //   uploadedFiles: [...this.state.uploadedFiles, data],
-            // });
+                // this.setState({
+                //   uploadedFiles: [...this.state.uploadedFiles, data],
+                // });
 
-            // this.setState({
-            //   fileName: response.data.fileName,
-            //   filePath: response.data.filePath,
-            // });
-        });
+                // this.setState({
+                //   fileName: response.data.fileName,
+                //   filePath: response.data.filePath,
+                // });
+            });
     };
 
     handleOnchangeLogo = (e) => {
@@ -67,29 +69,31 @@ class ManufacturerSignup extends Component {
         formData.append('file', file[0]);
         formData.append('document', 'logo');
         console.log(file, formData);
-        Axios.post(`http://${ipAddress}:3001/imageupload`, formData, {
-            document: 'documents',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }).then((response) => {
-            if (response.data.msg) console.log(response.data.msg);
-            else {
-                var data = JSON.stringify(response.data);
-                //var int = typeof data;
-                //console.log(data, typeof data);
-                this.setState({ uploadedLogo: data });
-            }
+        axios
+            .post(`http://${window.host}/imageupload`, formData, {
+                document: 'documents',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                if (response.data.msg) console.log(response.data.msg);
+                else {
+                    var data = JSON.stringify(response.data);
+                    //var int = typeof data;
+                    //console.log(data, typeof data);
+                    this.setState({ uploadedLogo: data });
+                }
 
-            // this.setState({
-            //   uploadedFiles: [...this.state.uploadedFiles, data],
-            // });
+                // this.setState({
+                //   uploadedFiles: [...this.state.uploadedFiles, data],
+                // });
 
-            // this.setState({
-            //   fileName: response.data.fileName,
-            //   filePath: response.data.filePath,
-            // });
-        });
+                // this.setState({
+                //   fileName: response.data.fileName,
+                //   filePath: response.data.filePath,
+                // });
+            });
     };
 
     handleCompanyStatus = (obj) => {
@@ -247,48 +251,53 @@ class ManufacturerSignup extends Component {
                                             longitude = latlngPosition.lng;
                                             console.log(latitude, longitude);
                                         }
-                                        Axios.post(
-                                            `http://${ipAddress}:3001/manufacturer-signup`,
-                                            {
-                                                email: values.email,
-                                                name: values.manufacturerName,
-                                                password: values.password,
-                                                contactPerson:
-                                                    values.contactPerson,
-                                                phoneNumber: values.phoneNumber,
-                                                contactPerson:
-                                                    values.contactPerson,
-                                                documentPath: uploadedFiles,
-                                                website: values.website,
-                                                manufacturerType: manufacturerType,
-                                                serviceList: stringData,
-                                                logo: uploadedLogo,
-                                                address: values.address,
-                                                otherServices: otherServicesData,
-                                                briefDescription: briefDescription,
-                                                latitude: latitude,
-                                                longitude: longitude,
-                                                additionalDetail: additionalDetail,
-                                            }
-                                        ).then((response) => {
-                                            //window.location.href = "/quotation";
-                                            if (response.data.message) {
-                                                this.setState({
-                                                    error:
-                                                        response.data.message,
-                                                });
-                                            } else {
-                                                this.props.history.push({
-                                                    pathname: '/verify',
-                                                    state: {
-                                                        email: values.email,
-                                                    },
-                                                    //send data to verify page
-                                                });
-                                                window.location.reload();
-                                                console.log(values.email);
-                                            }
-                                        });
+                                        axios
+                                            .post(
+                                                `http://${window.host}/manufacturer-signup`,
+                                                {
+                                                    email: values.email,
+                                                    name:
+                                                        values.manufacturerName,
+                                                    password: values.password,
+                                                    contactPerson:
+                                                        values.contactPerson,
+                                                    phoneNumber:
+                                                        values.phoneNumber,
+                                                    contactPerson:
+                                                        values.contactPerson,
+                                                    documentPath: uploadedFiles,
+                                                    website: values.website,
+                                                    manufacturerType: manufacturerType,
+                                                    serviceList: stringData,
+                                                    logo: uploadedLogo,
+                                                    address: values.address,
+                                                    otherServices: otherServicesData,
+                                                    briefDescription: briefDescription,
+                                                    latitude: latitude,
+                                                    longitude: longitude,
+                                                    additionalDetail: additionalDetail,
+                                                }
+                                            )
+                                            .then((response) => {
+                                                //window.location.href = "/quotation";
+                                                if (response.data.message) {
+                                                    this.setState({
+                                                        error:
+                                                            response.data
+                                                                .message,
+                                                    });
+                                                } else {
+                                                    this.props.history.push({
+                                                        pathname: '/verify',
+                                                        state: {
+                                                            email: values.email,
+                                                        },
+                                                        //send data to verify page
+                                                    });
+                                                    window.location.reload();
+                                                    console.log(values.email);
+                                                }
+                                            });
                                         setSubmitting(false);
                                     }, 400);
                                 }}

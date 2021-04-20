@@ -62,7 +62,7 @@ export function GetCookiesInfo() {
 //#region Get_Fabrication_Services
 export function GetFabricationServices(fabricationService) {
     axios
-        .post(`http://${ipAddress}:3001/fabricationservice`)
+        .post(`http://192.168.1.102:3001/fabricationservice`)
         .then((response) => {
             console.log('line-67', response);
             if (response.data) {
@@ -77,7 +77,7 @@ export function GetFabricationServices(fabricationService) {
 //#region Get_Material_From_Fabrication_Service
 export function GetMaterialFromFabrication(serviceID, materials) {
     axios
-        .post(`http://${ipAddress}:3001/materials`, {
+        .post(`http://192.168.1.102:3001/materials`, {
             fabricationID: serviceID,
         })
         .then((response) => {

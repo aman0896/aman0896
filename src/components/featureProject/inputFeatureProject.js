@@ -4,11 +4,10 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik } from 'formik';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import './feature.css';
-import Axios from 'axios';
+import axios from 'axios';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
-
 
 let file = [];
 class feature extends Component {
@@ -91,22 +90,24 @@ class feature extends Component {
         }
         formData.append('document', 'projectUploads');
         console.log(files, formData);
-        Axios.post(`http://${ipAddress}:3001/imageupload`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }).then((response) => {
-            if (response.data.msg) {
-                console.log(response.data.msg);
-                this.setState({ error: response.data.msg });
-            } else {
-                console.log(response.data);
-                var data = JSON.stringify(response.data);
+        axios
+            .post(`http://${window.host}/imageupload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                if (response.data.msg) {
+                    console.log(response.data.msg);
+                    this.setState({ error: response.data.msg });
+                } else {
+                    console.log(response.data);
+                    var data = JSON.stringify(response.data);
 
-                console.log(data, typeof data);
-                this.setState({ uploadedFiles: data });
-            }
-        });
+                    console.log(data, typeof data);
+                    this.setState({ uploadedFiles: data });
+                }
+            });
     };
     handleImageOnChange = (e) => {
         const formData = new FormData();
@@ -120,22 +121,24 @@ class feature extends Component {
 
         formData.append('document', 'projectMainPhoto');
         console.log(files, formData);
-        Axios.post(`http://${ipAddress}:3001/imageupload`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }).then((response) => {
-            if (response.data.msg) {
-                console.log(response.data.msg);
-                this.setState({ error: response.data.msg });
-            } else {
-                console.log(response.data);
-                var data = JSON.stringify(response.data);
-                //var int = typeof data;
-                console.log(data, typeof data);
-                this.setState({ uploadedImage: data });
-            }
-        });
+        axios
+            .post(`http://${window.host}/imageupload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                if (response.data.msg) {
+                    console.log(response.data.msg);
+                    this.setState({ error: response.data.msg });
+                } else {
+                    console.log(response.data);
+                    var data = JSON.stringify(response.data);
+                    //var int = typeof data;
+                    console.log(data, typeof data);
+                    this.setState({ uploadedImage: data });
+                }
+            });
     };
 
     render() {
@@ -166,9 +169,7 @@ class feature extends Component {
                     {' '}
                     <div className="row">
                         <div className="col-sm-3"></div>
-                        <div
-                            className="col-sm-6 card card-body mt-5 "                       
-                        >
+                        <div className="col-sm-6 card card-body mt-5 ">
                             <h5 className="font-weight-bold ">
                                 Feature Project
                             </h5>
@@ -215,24 +216,27 @@ class feature extends Component {
                                         } = GetCookiesInfo();
                                         console.log(uploadedFiles);
                                         if (!error) {
-                                            Axios.post(
-                                                `http://${ipAddress}:3001/feature-project`,
-                                                {
-                                                    id: customerID,
-                                                    process: values.process,
-                                                    material: values.material,
-                                                    summary: summary,
-                                                    title: values.title,
-                                                    userinfo: email,
-                                                    date: date,
-                                                    description: description,
-                                                    files: uploadedFiles,
-                                                    image: uploadedImage,
-                                                }
-                                            ).then((response) => {
-                                                console.log('data');
-                                                console.log(response.data);
-                                            });
+                                            axios
+                                                .post(
+                                                    `http://${window.host}/feature-project`,
+                                                    {
+                                                        id: customerID,
+                                                        process: values.process,
+                                                        material:
+                                                            values.material,
+                                                        summary: summary,
+                                                        title: values.title,
+                                                        userinfo: email,
+                                                        date: date,
+                                                        description: description,
+                                                        files: uploadedFiles,
+                                                        image: uploadedImage,
+                                                    }
+                                                )
+                                                .then((response) => {
+                                                    console.log('data');
+                                                    console.log(response.data);
+                                                });
                                             window.location.href = '/';
                                         }
 
@@ -351,7 +355,7 @@ class feature extends Component {
                                                         }
                                                         accept=".jpeg, .png, or .jpg"
                                                     />
-                                                   
+
                                                     <span className="text-danger  text-center">
                                                         {errors.fileName &&
                                                             touched.fileName &&
@@ -400,7 +404,7 @@ class feature extends Component {
                                                 accept=".jpeg, .png, or .jpg"
                                                 ref={this.imgRef}
                                                 onLoad={this.onImgLoad}
-                                            />                                        
+                                            />
                                             <span className="text-danger  text-center">
                                                 {errors.fileName &&
                                                     touched.fileName &&
@@ -460,13 +464,12 @@ class feature extends Component {
                                                     errors.summary}
                                             </span>
                                         </div>{' '}
-                                       
                                         <div className="mb-2">
                                             <label className="font-weight-bold small">
                                                 Detail Description :
                                             </label>
                                             <CKEditor
-                                                editor={ClassicEditor}                                           
+                                                editor={ClassicEditor}
                                                 config={{
                                                     placeholder:
                                                         'Add description',
@@ -477,7 +480,7 @@ class feature extends Component {
                                                         editor
                                                     );
                                                 }}
-                                            ></CKEditor>                                           
+                                            ></CKEditor>
                                             <span className="text-danger  text-center">
                                                 {errors.description &&
                                                     touched.description &&

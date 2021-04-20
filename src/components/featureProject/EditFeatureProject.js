@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
-import Axios from 'axios';
 import ckeditor, { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
@@ -70,8 +69,9 @@ class Editfeature extends Component {
 
         console.log(data);
         this.setState({ id: data });
-        Axios.post(`http://${ipAddress}:3001/edit-project`, { id: data }).then(
-            (response) => {
+        axios
+            .post(`http://${window.host}:3001/edit-project`, { id: data })
+            .then((response) => {
                 if (response.data) {
                     console.log(response.data);
                     const { filePath } = JSON.parse(response.data[0].Image);
@@ -86,8 +86,7 @@ class Editfeature extends Component {
                         previewImage: imagePath,
                     });
                 }
-            }
-        );
+            });
     }
 
     handleChange = (e, editor) => this.setState({ summary: editor.getData() });
@@ -111,22 +110,23 @@ class Editfeature extends Component {
         }
         formData.append('document', 'projectUploads');
         console.log(files, formData);
-        Axios.post(`http://${ipAddress}:3001/imageupload`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }).then((response) => {
-            if (response.data.msg) console.log(response.data.msg);
-            else {
-                console.log(response.data);
-                var data = JSON.stringify(response.data);
-                console.log(data, typeof data);
-                this.setState({ uploadedFiles: data });
-            }
-        });
+        axios
+            .post(`http://${window.host}/imageupload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                if (response.data.msg) console.log(response.data.msg);
+                else {
+                    console.log(response.data);
+                    var data = JSON.stringify(response.data);
+                    console.log(data, typeof data);
+                    this.setState({ uploadedFiles: data });
+                }
+            });
     };
 
-  
     handleImageOnChange = (e) => {
         const formData = new FormData();
         const files = e.target.files;
@@ -135,30 +135,34 @@ class Editfeature extends Component {
 
         formData.append('document', 'projectMainPhoto');
         console.log(files, formData);
-        Axios.post(`http://${ipAddress}:3001/imageupload`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }).then((response) => {
-            if (response.data.msg) {
-                console.log(response.data.msg);
-                this.setState({ error: response.data.msg });
-            } else {
-                console.log(response.data);
-                var image = JSON.stringify(response.data);
-
-                Axios.post(`http://${ipAddress}:3001/changeimage`, {
-                    id: this.state.id,
-                    image: image,
-                    userStatus: 'feature',
-                }).then((response) => {
+        axios
+            .post(`http://${window.host}/imageupload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                if (response.data.msg) {
+                    console.log(response.data.msg);
+                    this.setState({ error: response.data.msg });
+                } else {
                     console.log(response.data);
-                });
-                const { fileName, filePath } = JSON.parse(image);
-                console.log(filePath);
-                this.setState({ imagePath: filePath });
-            }
-        });
+                    var image = JSON.stringify(response.data);
+
+                    axios
+                        .post(`http://${window.host}/changeimage`, {
+                            id: this.state.id,
+                            image: image,
+                            userStatus: 'feature',
+                        })
+                        .then((response) => {
+                            console.log(response.data);
+                        });
+                    const { fileName, filePath } = JSON.parse(image);
+                    console.log(filePath);
+                    this.setState({ imagePath: filePath });
+                }
+            });
     };
 
     render() {
@@ -299,24 +303,27 @@ class Editfeature extends Component {
                                                 customerID,
                                             } = GetCookiesInfo();
                                             console.log(uploadedFiles);
-                                            Axios.post(
-                                                `http://${ipAddress}:3001/update-project`,
-                                                {
-                                                    customerID: customerID,
-                                                    process: values.process,
-                                                    material: values.material,
-                                                    summary: summary,
-                                                    title: values.title,
-                                                    userinfo: email,
-                                                    date: date,
-                                                    description: description,
+                                            axios
+                                                .post(
+                                                    `http://${window.host}/update-project`,
+                                                    {
+                                                        customerID: customerID,
+                                                        process: values.process,
+                                                        material:
+                                                            values.material,
+                                                        summary: summary,
+                                                        title: values.title,
+                                                        userinfo: email,
+                                                        date: date,
+                                                        description: description,
 
-                                                    projectID: id,
-                                                }
-                                            ).then((response) => {
-                                                console.log('data');
-                                                console.log(response.data);
-                                            });
+                                                        projectID: id,
+                                                    }
+                                                )
+                                                .then((response) => {
+                                                    console.log('data');
+                                                    console.log(response.data);
+                                                });
                                             window.location.href = '/';
 
                                             setSubmitting(false);

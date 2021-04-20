@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -17,11 +17,9 @@ function OTPVerification(props) {
     };
     const data = location.data;
     useEffect(() => {
-        Axios.post(`http://${ipAddress}:3001/verify-password`).then(
-            (response) => {
-                setPath(response.data.locate);
-            }
-        );
+        axios.post(`http://${window.host}/verify-password`).then((response) => {
+            setPath(response.data.locate);
+        });
     }, []);
     const onVerifyClick = (event) => {
         event.preventDefault();
@@ -30,22 +28,24 @@ function OTPVerification(props) {
         //getting data from login
         console.log(data);
 
-        Axios.post(`http://${ipAddress}:3001/verify`, {
-            otp: otp,
-            email: data,
-        }).then((response) => {
-            if (response.data.msg && response.data.isVerified) {
-                console.log(response.data.msg);
-                setMsg(response.data.msg);
-                if (path == '/login/identity') {
-                    history.push({ pathname: `/reset-password/${id}` });
+        axios
+            .post(`http://${window.host}/verify`, {
+                otp: otp,
+                email: data,
+            })
+            .then((response) => {
+                if (response.data.msg && response.data.isVerified) {
+                    console.log(response.data.msg);
+                    setMsg(response.data.msg);
+                    if (path == '/login/identity') {
+                        history.push({ pathname: `/reset-password/${id}` });
+                    } else {
+                        history.push('/login');
+                    }
                 } else {
-                    history.push('/login');
+                    setMsg(response.data.msg);
                 }
-            } else {
-                setMsg(response.data.msg);
-            }
-        });
+            });
     };
 
     return (

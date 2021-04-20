@@ -35,7 +35,7 @@ const EditUserProf = (props) => {
 
     useEffect(() => {
         axios
-            .post(`http://localhost:3001/customer/${customerID}`)
+            .post(`http://${window.host}/customer/${customerID}`)
             .then((response) => {
                 if (response.data) {
                     console.log(response.data[0]);
@@ -60,7 +60,7 @@ const EditUserProf = (props) => {
         formData.append('id', customerID);
         console.log(file, formData);
         axios
-            .post(`http://${ipAddress}:3001/imageupload`, formData, {
+            .post(`http://${window.host}/imageupload`, formData, {
                 document: 'documents',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -79,7 +79,7 @@ const EditUserProf = (props) => {
                     console.log(data);
 
                     axios
-                        .post(`http://${ipAddress}:3001/changeimage`, {
+                        .post(`http://${window.host}/changeimage`, {
                             id: customerID,
                             image: data,
                             userStatus: userStatus,
@@ -224,7 +224,7 @@ const EditUserProf = (props) => {
                                         console.log('submit');
                                         axios
                                             .post(
-                                                `http://${ipAddress}:3001/editProfile`,
+                                                `http://${window.host}/editProfile`,
                                                 {
                                                     id: customerID,
                                                     firstname: values.firstName,
@@ -440,7 +440,7 @@ const EditUserProf = (props) => {
                                         console.log(values.email);
                                         axios
                                             .post(
-                                                `http://${ipAddress}:3001/change-password`,
+                                                `http://${window.host}/change-password`,
                                                 {
                                                     new_password:
                                                         values.new_password,

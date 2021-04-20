@@ -33,7 +33,7 @@ function ManufacturerViewProfile(props) {
 
     useEffect(() => {
         axios
-            .post(`http://localhost:3001/manufacturer/${id}`)
+            .post(`http://${window.host}/manufacturer/${id}`)
             .then((response) => {
                 if (response.data) {
                     const { hub, services } = response.data;
@@ -51,7 +51,7 @@ function ManufacturerViewProfile(props) {
 
     useEffect(() => {
         axios
-            .post(`http://localhost:3001/manufacturer/${id}`)
+            .post(`http://${window.host}/manufacturer/${id}`)
             .then((response) => {
                 if (response.data) {
                     const { hub, services } = response.data;

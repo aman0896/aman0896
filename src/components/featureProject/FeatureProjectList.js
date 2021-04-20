@@ -1,7 +1,7 @@
 import React from 'react';
 import '../main/style.css';
 import { useState, useEffect } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import './feature.css';
 import ReactHtmlParser from 'react-html-parser';
 import '../global/card.css';
@@ -24,14 +24,12 @@ function FeatureProjectList(props) {
     const [selected, setSelected] = useState(false);
 
     useEffect(() => {
-        Axios.get(`http://${ipAddress}:3001/feature-project`).then(
-            (response) => {
-                if (response.data) {
-                    console.log(response.data);
-                    setfeatureProject(response.data);
-                }
+        axios.get(`http://${window.host}/feature-project`).then((response) => {
+            if (response.data) {
+                console.log(response.data);
+                setfeatureProject(response.data);
             }
-        );
+        });
     }, []);
     const onMouseEnter = (id) => {
         console.log('id', id);
@@ -205,7 +203,7 @@ function FeatureProjectList(props) {
                     overflowX: 'hidden',
                     paddingTop: '20px',
                     paddingBottom: '20px',
-                    minHeight: '95vh'
+                    minHeight: '95vh',
                 }}
             >
                 <div style={{ marginBottom: '20px', marginTop: '20px' }}>

@@ -16,7 +16,7 @@ var fs = require('fs');
 app.use(express.json());
 app.use(
     cors({
-        origin: ['http://localhost:3000'],
+        origin: ['http://192.168.1.102:3000'],
         method: ['GET', 'POST'],
         credentials: true,
     })
@@ -357,8 +357,6 @@ app.post('/feature-project', (req, res) => {
             console.log(err, id);
         }
     );
-
-    
 });
 
 app.post('/update-project', (req, res) => {
@@ -373,7 +371,7 @@ app.post('/update-project', (req, res) => {
     const fileName = req.body.fileName;
     const url = req.body.fileURL;
     const description = req.body.description;
-    
+
     const projectID = req.body.projectID;
 
     db.query(
@@ -394,13 +392,9 @@ app.post('/update-project', (req, res) => {
             console.log(err, id);
         }
     );
-
-   
 });
 
 app.get('/feature-project', (req, res) => {
-   
-
     db.query('SELECT * FROM feature_project', (err, result) => {
         if (err) {
             res.send({ err: err });
@@ -410,12 +404,9 @@ app.get('/feature-project', (req, res) => {
             res.send(result);
         }
     });
-
-    
 });
 
 app.post('/edit-project', (req, res) => {
-
     const id = req.body.id;
     console.log('id', id);
 
@@ -432,12 +423,9 @@ app.post('/edit-project', (req, res) => {
             }
         }
     );
-
- 
 });
 
 app.post('/project/:id', (req, res) => {
-    
     const id = req.params.id;
     console.log('id', id);
 
@@ -454,12 +442,9 @@ app.post('/project/:id', (req, res) => {
             }
         }
     );
-
-    
 });
 
 app.post('/delete-project', (req, res) => {
-  
     const id = req.body.id;
 
     db.query(
@@ -471,8 +456,6 @@ app.post('/delete-project', (req, res) => {
             console.log(result, 'delete');
         }
     );
-
-
 });
 
 //#region verifying OTP And Updating Current User information by adding otp
@@ -568,7 +551,7 @@ app.post('/login', (req, res) => {
                             console.log('match', response);
                             if (response) {
                                 let userInfo = result;
-                               
+
                                 res.send({
                                     userInfo,
                                     loggedIn: true,
@@ -633,7 +616,6 @@ app.post('/login', (req, res) => {
         }
     );
 });
-
 
 app.post('/validation-page', (req, res) => {
     const sql = 'SELECT * FROM cadfiles WHERE uploadedby = ?';
@@ -1558,6 +1540,6 @@ app.post('/update-services/:id', (req, res) => {
 
 //#endregion
 
-app.listen(3001, '127.0.0.1', () => {
+app.listen(3001, '192.168.1.102', () => {
     console.log('running server');
 });

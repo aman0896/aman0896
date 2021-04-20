@@ -1,7 +1,6 @@
 import React from 'react';
 import '../main/style.css';
 import { useState, useEffect } from 'react';
-import Axios from 'axios';
 import './feature.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import '../form/registrationPage.css';
@@ -13,10 +12,8 @@ import Cookies from 'universal-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDelete from './ModalDelete';
 
-
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
-
 
 const cookies = new Cookies();
 
@@ -36,31 +33,29 @@ function EditFeatureProjectList(props) {
     var dateObj;
     var dateString;
     var projectList;
-     var files; 
+    var files;
 
     var filterProjectList;
     useEffect(() => {
-        Axios.get(`http://${ipAddress}:3001/feature-project`).then(
-            (response) => {
-                if (response.data) {
-                    console.log(response.data);
-                    projectList = response.data;
-                    console.log(projectList);
-                    filterProjectList = projectList.filter(
-                        (data) => data.Customer_ID == customerID
-                    );
-                    console.log(filterProjectList);
-                    setfeatureProject(filterProjectList);
-                }
+        axios.get(`http://${window.host}/feature-project`).then((response) => {
+            if (response.data) {
+                console.log(response.data);
+                projectList = response.data;
+                console.log(projectList);
+                filterProjectList = projectList.filter(
+                    (data) => data.Customer_ID == customerID
+                );
+                console.log(filterProjectList);
+                setfeatureProject(filterProjectList);
             }
-        );
+        });
     });
     const onClickReadMore = (ID, title) => {
         const { match } = props;
         const name = title;
         const id = ID;
-        console.log(name, id,match);
-     window.location.href = `edit-projectlist/${id}/${name}`;
+        console.log(name, id, match);
+        window.location.href = `edit-projectlist/${id}/${name}`;
     };
 
     const searchSpace = (event) => {
@@ -74,13 +69,15 @@ function EditFeatureProjectList(props) {
         setProjectID(Project_ID);
     };
     const handleDelete = () => {
-        Axios.post(`http://${ipAddress}:3001/delete-project`, {
-            id: ProjectID,
-        }).then((response) => {
-            console.log('data');
-            //setShowModal(false);
-            window.location.href = '/edit-projectlist';
-        });
+        axios
+            .post(`http://${window.host}/delete-project`, {
+                id: ProjectID,
+            })
+            .then((response) => {
+                console.log('data');
+                //setShowModal(false);
+                window.location.href = '/edit-projectlist';
+            });
     };
 
     const onClickEdit = (Project_ID) => {
@@ -110,8 +107,7 @@ function EditFeatureProjectList(props) {
         .map((project, index) => {
             if (project.Files) {
                 files = JSON.parse(project.Image);
-                console.log(files)
-             
+                console.log(files);
             }
 
             return (
@@ -238,11 +234,7 @@ function EditFeatureProjectList(props) {
                                             )
                                         }
                                     >
-                                        <span
-                                            id="readmore"
-                                        >
-                                            {'Read More'}
-                                        </span>
+                                        <span id="readmore">{'Read More'}</span>
                                         <span className="mt-1 ml-1">
                                             {' '}
                                             <i className="fas fa-angle-double-right fa-1x"></i>

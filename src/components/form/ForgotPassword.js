@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import { Formik } from 'formik';
 
 import { useHistory, useLocation } from 'react-router-dom';
@@ -49,31 +49,35 @@ export default function ForgotPassword(props) {
                                 }}
                                 onSubmit={(values, { setSubmitting }) => {
                                     setTimeout(() => {
-                                        Axios.post(
-                                            `http://${ipAddress}:3001/reset-password`,
-                                            {
-                                                email: values.email,
-                                                path: window.location.pathname,
-                                            }
-                                        ).then((response) => {
-                                            if (response.data.message) {
-                                                setErrors(
-                                                    response.data.message
-                                                );
-                                            } else {
-                                                const id = response.data;
-                                                window.location.href = `/verify/${id}`;
-                                                // history.push({
-                                                //     pathname: `/verify/${values.email}`,
-                                                //     data: values.email,
-                                                //     state: {
-                                                //         email: values.email,
-                                                //     },
-                                                //     //send data to verify page
-                                                // });
-                                                console.log(values.email);
-                                            }
-                                        });
+                                        axios
+                                            .post(
+                                                `http://${window.host}:3001/reset-password`,
+                                                {
+                                                    email: values.email,
+                                                    path:
+                                                        window.location
+                                                            .pathname,
+                                                }
+                                            )
+                                            .then((response) => {
+                                                if (response.data.message) {
+                                                    setErrors(
+                                                        response.data.message
+                                                    );
+                                                } else {
+                                                    const id = response.data;
+                                                    window.location.href = `/verify/${id}`;
+                                                    // history.push({
+                                                    //     pathname: `/verify/${values.email}`,
+                                                    //     data: values.email,
+                                                    //     state: {
+                                                    //         email: values.email,
+                                                    //     },
+                                                    //     //send data to verify page
+                                                    // });
+                                                    console.log(values.email);
+                                                }
+                                            });
                                         setSubmitting(false);
                                     }, 100);
                                 }}

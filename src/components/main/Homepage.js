@@ -21,6 +21,7 @@ class HomePage extends Component {
     render() {
         return (
             <div className="view">
+                {console.log('hello', window.host)}
                 <div
                     style={{
                         backgroundImage: 'url(/landingpage_image/homepage.jpg)',
