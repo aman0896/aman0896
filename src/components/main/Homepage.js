@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import './homePage.css';
 import logo from '../assests/logo.jpg';
 import Button from '../global/Button';
-import Technology from './technology';
-import About from './aboutUs';
 import { Link } from 'react-router-dom';
-//import Technology from "./technology";
 import Cookies from 'universal-cookie';
-import onGetInstantBtnClick from '../global/GlobalFunction';
-import { Overlay } from 'react-bootstrap';
 import Footer from './footer';
 import ProductionCapabilities from './ProductionCapabilities';
 
@@ -34,7 +29,6 @@ class HomePage extends Component {
                             backgroundColor: 'rgba(16, 14, 10, 0.9)',
                             width: '100%',
                             height: '100vh',
-                            //paddingTop: "80px"
                         }}
                     >
                         <div className="mb-3" style={titleStyle}>
@@ -55,17 +49,11 @@ class HomePage extends Component {
                                 btnName="Request for Quote"
                                 styleClass="btn btn-primary btn-lg d-flex justify-content-center"
                                 toggle="modal"
-                                target={this.state.showModal}
-                                onClick={() =>
-                                    this.setState({
-                                        showModal: onGetInstantBtnClick(),
-                                    })
-                                }
+                                target="#placeOrderModal"
                             />
                         </div>
                         <div className="mt-3" style={textStyle}>
                             <p>
-                                {' '}
                                 Hundreds of local makers with amazing
                                 manufacturing resources are waiting for your
                                 order. Do you have something cool to make it
@@ -109,7 +97,6 @@ class HomePage extends Component {
                 <div
                     className="d-flex flex-column "
                     style={{
-                        // backgroundColor: "rgba(0, 0, 0, 0.9)",
                         width: '100%',
                     }}
                 >
@@ -142,15 +129,6 @@ class HomePage extends Component {
                                     (window.location.href = '/manufacturer')
                                 }
                             />
-                            {/* <div className="mt-5">
-              <Link
-                to="/manufacturer-signup"
-                style={{ textDecoration: "underline" }}
-                className="mt-5"
-              >
-                Are you a Maker? Sign Up to build your portfolio.
-              </Link>
-            </div> */}
                         </div>
                         <Link
                             to="/manufacturer-signup"
@@ -204,27 +182,10 @@ class HomePage extends Component {
                             Share your innovation/product/project to feature in
                             our platform
                         </Link>
-                        {/* <Link
-                        to="/manufacturer-signup"
-                        className="d-flex justify-content-center mt-3 text-primary"
-                        style={{
-                            textDecoration: 'underline',
-                            //color: "#0069d9",
-                            // marginLeft: "100px",
-                            fontSize: '20px',
-                            fontStyle: 'italic',
-                        }}
-                    >
-                        Learn How to place orders
-                    </Link> */}
                         <div className="pt-4"></div>
                     </div>
                 </div>
                 <Footer></Footer>
-
-                {/* <div className="container-fluid">
-          <About />
-        </div> */}
             </div>
         );
     }
