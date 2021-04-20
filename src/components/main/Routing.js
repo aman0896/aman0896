@@ -52,7 +52,7 @@ function Routing({ isAuth, currentUser }) {
                 id="placeOrderModal"
                 link1="request-quote"
                 link2="new-quote"
-            />{' '}
+            />
             <Modal
                 title="SignUp"
                 option1="As Client"
@@ -61,8 +61,6 @@ function Routing({ isAuth, currentUser }) {
                 link1="register"
                 link2="/manufacturer-signup"
             />
-            {/* <ModalDelete /> */}
-            {/* <div className="p-4"></div> */}
             <Router>
                 <div className="p-4">
                     <NavBar isAuth={isAuth} currentUser={currentUser} />
@@ -107,11 +105,6 @@ function Routing({ isAuth, currentUser }) {
                             component={ManufacturerSignup}
                         />
                         <Route path="/technology" component={Technology} />
-                        {/* <Route
-              path="/manufacturerdetail"
-              component={ManufacturerViewProfile}
-            /> */}
-                        {/* <Route path="/demo" component={OpenStreet} /> */}
                         <Route
                             path="/feature-project"
                             exact
@@ -122,20 +115,16 @@ function Routing({ isAuth, currentUser }) {
                             path="/validation-page/:uid"
                             component={validation}
                         />
-
-                        {/* <Route path="/feature" component={Feature} /> */}
                         <ProtectedRoute
                             path="/feature"
                             component={Feature}
                             isAuth={isAuth}
                             redirectionPage="/login"
                         />
-                        {/* <Route path="/detail-feature" component={DetailFeature} /> */}
                         <Route
                             path="/feature-project/:id/:title"
                             component={DetailFeature}
                         />
-                        {/* <Route path="/demo" component={demo} /> */}
                         <Route
                             path="/feature-project"
                             component={featureProject}
