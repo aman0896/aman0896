@@ -231,10 +231,10 @@ const MakerProf = () => {
                                         </div>
                                     </div>
 
-                                    <div className="col-lg-6">
+                                    <div className="col-lg-12">
                                         <div className="form-group">
                                             <div className="row">
-                                                <div className="col-5">
+                                                <div className="col-2">
                                                     <label
                                                         className="font-weight-bold"
                                                         for="website"
@@ -242,7 +242,7 @@ const MakerProf = () => {
                                                         Website :
                                                     </label>
                                                 </div>
-                                                <div className="col-7">
+                                                <div className="col-7 ml-4">
                                                     <p>{currentHub.Website}</p>
                                                 </div>
                                             </div>

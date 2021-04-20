@@ -10,6 +10,7 @@ import ManufacturerServiceSelect from './ManufacturerServiceSelect';
 import {} from '@fortawesome/free-regular-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
@@ -195,10 +196,9 @@ function EditManufacturerProfile(props) {
                         <div className="card h-100 border-0">
                             <div className="card-body">
                                 <div className="account-settings">
-                                    <div className="user-profile">
+                                    <div className="user-profile" id="image">
                                         <div className="user-avatar">
                                             <a
-                                                href="#"
                                                 aria-label="Change Profile Picture"
                                                 className="change-pic"
                                             >
@@ -209,18 +209,27 @@ function EditManufacturerProfile(props) {
                                                         border:
                                                             '1px solid lightgray',
                                                     }}
-                                                >
-                                                    <input
-                                                        className="avatar-file h-100 w-100"
-                                                        type="file"
-                                                        name="file"
-                                                        accept="image/*"
-                                                        onChange={
-                                                            handleOnchangeimage
-                                                        }
-                                                    />
-                                                    <span className="glyphicon glyphicon-camera"></span>
-                                                    <span>Change Image</span>
+                                                ></div>
+                                                <div className="overlay">
+                                                    <span
+                                                        //href="#"
+                                                        className="icon"
+                                                        //title="User Profile"
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            //style={{ marginRight: 2 }}
+                                                            icon={faCamera}
+                                                            size="sm"
+                                                        />
+                                                        <input
+                                                            className="avatar-file h-100 w-100"
+                                                            type="file"
+                                                            name="file"
+                                                            onChange={
+                                                                handleOnchangeimage
+                                                            }
+                                                        />
+                                                    </span>
                                                 </div>
                                             </a>
                                         </div>
@@ -258,9 +267,6 @@ function EditManufacturerProfile(props) {
                                             errors.email =
                                                 'Invalid email address';
                                         }
-                                        // if (!values.firstName) {
-                                        //   errors.firstName = "Required";
-                                        // }
                                         if (!values.contactPerson) {
                                             errors.contactPerson = 'Required';
                                         }
@@ -279,7 +285,6 @@ function EditManufacturerProfile(props) {
                                                     `http://${ipAddress}:3001/editManufacturerProfile`,
                                                     {
                                                         id: manufacturerID,
-                                                        // firstname: values.firstName,
                                                         contactPerson:
                                                             values.contactPerson,
                                                         email: values.email,
@@ -289,20 +294,13 @@ function EditManufacturerProfile(props) {
                                                 )
                                                 .then((response) => {
                                                     console.log(response.data);
-                                                    // document.cookie = `userInfo = ${JSON.stringify(
-                                                    //   response.data
-                                                    // )}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
-
                                                     history.push({
                                                         pathname:
-                                                            '/manufacturerprofile',
-                                                        // state: { email: email },
+                                                            '/manufacturer-profile',
                                                     });
 
                                                     window.location.reload();
                                                 });
-
-                                            //this.setState({ loading: false });
                                             setSubmitting(false);
                                         }, 100);
                                     }}
@@ -609,22 +607,12 @@ function EditManufacturerProfile(props) {
                                                     />
                                                 </div>
                                             </div>
-                                            {/* 
-                   <div className=" col-6">
-                      <div className="form-group no-bottom-border">
-                         <label for="confirmPassword">Confirm Password</label>
-                         <input type="password" className="form-control" id="confirmPassword" placeholder="retype your new password"/>
-                      </div>
-                   </div>
-                   */}
                                         </div>
                                         <div className="row gutters">
                                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div>
                                                     <button
                                                         type="submit"
-                                                        //id="submit"
-                                                        //name="submit"
                                                         disabled={isSubmitting}
                                                         className="btn btn-primary mr-2 float-right"
                                                     >
@@ -640,41 +628,148 @@ function EditManufacturerProfile(props) {
                     </div>
                 </div>
 
-                {/* <div className="col-md-12 col-sm-12 col-12 mt-4">
+                <div className="col-md-12 col-sm-12 col-12 mt-4">
                     <div className="card">
-                        <div className="card-body">
-                            <h3 className="mb-3 text-primary">
-                                Additional Details
-                            </h3>
-                            <div className="row gutters">
-                                <div className="col-12">
-                                    <div className="form-group no-bottom-border">
-                                        <textarea
-                                            type="text"
-                                            className="form-control"
-                                            rows="4"
-                                            placeholder="Additional Details"
-                                        ></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row gutters">
-                                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
-                                    <div>
-                                        <button
-                                            type="button"
-                                            id="submit"
-                                            name="submit"
-                                            className="btn btn-primary mr-2"
-                                        >
-                                            Update
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {currentHub && (
+                            <Formik
+                                enableReinitialize={true}
+                                initialValues={{
+                                    briefDescriptiom:
+                                        currentHub.Brief_Description,
+                                    additionalDetails:
+                                        currentHub.Additional_Details,
+                                }}
+                                validate={(values) => {
+                                    const errors = {};
+                                    if (!values.briefDescriptiom) {
+                                        errors.briefDescriptiom = 'Required';
+                                    }
+                                    if (!values.additionalDetails) {
+                                        errors.additionalDetails = 'Required';
+                                    }
+                                    console.log(errors);
+                                    return errors;
+                                }}
+                                onSubmit={(values, { setSubmitting }) => {
+                                    setTimeout(() => {
+                                        axios
+                                            .post(
+                                                `http://${ipAddress}:3001/update-details`,
+                                                {
+                                                    briefDescriptiom:
+                                                        values.briefDescriptiom,
+                                                    additionalDetails:
+                                                        values.additionalDetails,
+
+                                                    id: manufacturerID,
+                                                }
+                                            )
+                                            .then((response) => {
+                                                {
+                                                    history.push({
+                                                        pathname:
+                                                            '/manufacturer-profile',
+                                                    });
+                                                }
+                                            });
+                                        setSubmitting(false);
+                                    }, 100);
+                                }}
+                            >
+                                {({
+                                    values,
+                                    errors,
+                                    touched,
+                                    handleChange,
+                                    handleBlur,
+                                    handleSubmit,
+                                    isSubmitting,
+                                    /* and other goodies */
+                                }) => (
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="card-body">
+                                            <h3 className="mb-3 text-primary">
+                                                Brief Description
+                                            </h3>
+                                            <div className="row gutters">
+                                                <div className="col-12">
+                                                    <div className="form-group no-bottom-border">
+                                                        <textarea
+                                                            type="text"
+                                                            className="form-control"
+                                                            rows="4"
+                                                            placeholder="Brief Description"
+                                                            name="briefDescriptiom"
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            value={
+                                                                values.briefDescriptiom
+                                                            }
+                                                        ></textarea>
+                                                    </div>
+                                                    <div
+                                                        className="text-danger"
+                                                        style={{
+                                                            fontSize: '10pt',
+                                                        }}
+                                                    >
+                                                        {errors.briefDescriptiom &&
+                                                            touched.briefDescriptiom &&
+                                                            errors.briefDescriptiom}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3 className="mb-3 text-primary">
+                                                Additional Details
+                                            </h3>
+                                            <div className="row gutters">
+                                                <div className="col-12">
+                                                    <div className="form-group no-bottom-border">
+                                                        <textarea
+                                                            type="text"
+                                                            className="form-control"
+                                                            rows="4"
+                                                            placeholder="Additional Details"
+                                                            name="additionalDetails"
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            value={
+                                                                values.additionalDetails
+                                                            }
+                                                        ></textarea>
+                                                    </div>
+                                                    <div
+                                                        className="text-danger"
+                                                        style={{
+                                                            fontSize: '10pt',
+                                                        }}
+                                                    >
+                                                        {errors.additionalDetails &&
+                                                            touched.additionalDetails &&
+                                                            errors.additionalDetails}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row gutters">
+                                                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
+                                                    <button
+                                                        type="submit"
+                                                        className="btn btn-primary mr-2"
+                                                        disabled={isSubmitting}
+                                                    >
+                                                        Update
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                )}
+                            </Formik>
+                        )}
                     </div>
-                </div> */}
+                </div>
 
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt-4">
                     <button
@@ -682,6 +777,9 @@ function EditManufacturerProfile(props) {
                         id="submit"
                         name="submit"
                         className="btn cancel-btn btn-primary"
+                        onClick={() => {
+                            window.location.href = '/manufacturer-profile';
+                        }}
                     >
                         Cancel
                     </button>

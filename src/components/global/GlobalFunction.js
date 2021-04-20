@@ -79,6 +79,7 @@ export function GetFabricationServices(fabricationService) {
     axios
         .post(`http://${ipAddress}:3001/fabricationservice`)
         .then((response) => {
+            console.log('line-67', response);
             if (response.data) {
                 fabricationService(null, response.data);
             } else {

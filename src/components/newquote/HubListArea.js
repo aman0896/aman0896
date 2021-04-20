@@ -103,9 +103,9 @@ function HubListArea({ title, HubList }) {
                             className="form-control"
                             type="text"
                             title="Search"
-                            placeholder="Search by location, Services, Name"
+                            placeholder="Search by location, Name"
                             style={{
-                                outline: 'none',
+                                paddingRight:"40px"
                             }}
                             onChange={(e) => searchSpace(e)}
                         />{' '}

@@ -261,10 +261,10 @@ class NavBar extends Component {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse justify-content-end">
+                    <div className="collapse navbar-collapse justify-content-end mr-4">
                         <div style={{ color: 'white' }}>
                             <ul className="nav" style={{ color: 'white' }}>
-                                <li>
+                                <li className="nav-item mr-4">
                                     <Button
                                         btnName="Request for Quote"
                                         styleClass={navButton}
@@ -277,10 +277,10 @@ class NavBar extends Component {
                                         target="#placeOrderModal"
                                     />
                                 </li>
-                                <li className="">
+                                <li className="nav-item">
                                     <NavLink
                                         activeClassName="active"
-                                        className="nav-link"
+                                        className="nav-link pl-1"
                                         style={{ color: 'white' }}
                                         to="/manufacturer-list"
                                     >
@@ -290,7 +290,7 @@ class NavBar extends Component {
 
                                 <li className="dropdown nav-item">
                                     <a
-                                        className="nav-link"
+                                        className="nav-link pl-1"
                                         href="#"
                                         data-toggle="dropdown"
                                         style={{ color: 'white' }}
@@ -319,38 +319,57 @@ class NavBar extends Component {
                                 </li>
                                 <li className="dropdown nav-item">
                                     <a
-                                        className="nav-link"
-                                        href="#"
-                                        data-toggle="dropdown"
+                                        className="nav-link pl-1"
+                                                 href="/knowledgebank1"
                                         style={{ color: 'white' }}
                                     >
                                         Knowledge Bank
                                     </a>
                                     <ul className="dropdown-menu bg-primary">
                                         <li>
-                                            <a
+                                            <Link
+                                                to="3D-Printing"
                                                 className="dropdown-item  no-bottom-border"
-                                                href="/3d-printing"
+                                                activeClassName="active"
+                                                spy={true}
+                                                hashSpy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-80}
+                                                style={{ color: 'white' }}
+                                                onClick={(e) => {
+                                                    window.location.href =
+                                                        '/knowledgebank1/#3D-Printing';
+                                                }}
                                             >
-                                                {' '}
                                                 3D PRINTING
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
+                                                to="Vaccume-Forming"
                                                 className="dropdown-item  no-bottom-border"
-                                                href="/vacuum-forming"
+                                                activeClassName="active"
+                                                spy={true}
+                                                hashSpy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-80}
+                                                style={{ color: 'white' }}
+                                                onClick={(e) => {
+                                                    window.location.href =
+                                                        '/knowledgebank1/#Vaccume-Forming';
+                                                }}
                                             >
-                                                {' '}
-                                                VACCUM FORMING
-                                            </a>
+                                                Vaccum Forming
+                                            </Link>
                                         </li>
                                     </ul>
                                 </li>
-                                <li className="">
+                                <li className="nav-item">
                                     <Link
                                         to="about"
-                                        className="nav-link"
+                                        className="nav-link pl-1"
                                         activeClassName="active"
                                         spy={true}
                                         hashSpy={true}

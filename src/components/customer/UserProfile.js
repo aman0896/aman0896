@@ -16,7 +16,9 @@ const UserProf = () => {
     const firstName = userName;
     const history = useHistory();
 
-    const [imagePath, setImagePath] = useState();
+    const [imagePath, setImagePath] = useState(
+        '/profileImage/3f9470b34a8e3f526dbdb022f9f19cf7.jpg'
+    );;
 
     const onClickEditProfile = () => {
         window.location.href = `/${customerID}/customer-profile`;

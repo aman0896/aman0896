@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import Select from 'react-select';
-//import "../quotation.css";
 import Axios from 'axios';
 import MfgProcessViewSelected, {
     ExpandTable,
@@ -220,7 +218,7 @@ class ManufacturerSignup extends Component {
                                         errors.briefDescription = 'Required!!';
                                     if (!additionalDetail)
                                         errors.additionalDetail = 'Required!!';
-                                     if (!uploadedFiles)
+                                    if (!uploadedFiles)
                                         errors.uploadedFiles = 'Required!!';
                                     if (!uploadedLogo)
                                         errors.uploadedLogo = 'Required!!';
@@ -433,8 +431,7 @@ class ManufacturerSignup extends Component {
                                                         <div className="col-4 ">
                                                             <span className="font-weight-bold">
                                                                 {' '}
-                                                                Upload
-                                                                Document:
+                                                                Upload Document:
                                                             </span>
                                                         </div>
                                                         <div className="col">

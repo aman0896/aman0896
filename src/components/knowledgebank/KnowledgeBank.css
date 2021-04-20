@@ -1,0 +1,8 @@
+.content-view {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}

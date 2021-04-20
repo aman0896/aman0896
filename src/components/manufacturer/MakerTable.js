@@ -1,6 +1,6 @@
 import { isEmptyArray } from 'formik';
 import React, { useState, useEffect } from 'react';
-import Data from './Data.json';
+//import Data from './Data.json';
 import './MakerTable.css';
 
 var list = null;

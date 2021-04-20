@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
-//import "./feature.css";
 import { Modal } from 'react-bootstrap';
 import Axios from 'axios';
-import {
-    ContactsOutlined,
-    DesktopWindows,
-    LaptopWindows,
-} from '@material-ui/icons';
 import ckeditor, { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
 import { Formik } from 'formik';
-import Cookies from 'universal-cookie';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import './feature.css';
 import '../customer/UserProfile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faImage, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
 
-const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach((val) => val.length > 0 && (valid = false));
-    return valid;
-};
-let file = [];
 class Editfeature extends Component {
     constructor() {
         super();
@@ -58,9 +46,6 @@ class Editfeature extends Component {
         this.state = {
             date: date,
         };
-        this.imgRef = React.createRef();
-        this.onImgLoad = this.onImgLoad.bind(this);
-        this.onchange = this.onchange.bind(this);
     }
     state = {
         setShow: true,
@@ -78,12 +63,6 @@ class Editfeature extends Component {
         Description: '',
         previewImage: [],
     };
-    onImgLoad({ target: img }) {
-        // this.setState({
-        //   height: img.offsetHeight,
-        //   width: img.naturalWidth,
-        // });
-    }
 
     componentDidMount() {
         const location = this.props.location;
@@ -95,8 +74,6 @@ class Editfeature extends Component {
             (response) => {
                 if (response.data) {
                     console.log(response.data);
-                    // var list = JSON.stringify(response.data[0]);
-                    // console.log(list)
                     const { filePath } = JSON.parse(response.data[0].Image);
                     const imagePath = JSON.parse(response.data[0].Files);
                     this.setState({
@@ -119,7 +96,6 @@ class Editfeature extends Component {
         this.setState({ description: editor.getData() });
 
     onchange = (e) => {
-        //let file = e.target.files;
         const height = this.imgRef.current.clientHeight;
         const width = this.imgRef.current.clientWidth;
         this.setState({
@@ -144,26 +120,13 @@ class Editfeature extends Component {
             else {
                 console.log(response.data);
                 var data = JSON.stringify(response.data);
-                //var int = typeof data;
                 console.log(data, typeof data);
                 this.setState({ uploadedFiles: data });
             }
-
-            // this.setState({
-            //   uploadedFiles: [...this.state.uploadedFiles, data],
-            // });
-
-            // this.setState({
-            //   fileName: response.data.fileName,
-            //   filePath: response.data.filePath,
-            // });
         });
-
-        // alert(`
-        //   Height : ${height}
-        //   Width : ${width}
-        // `);
     };
+
+  
     handleImageOnChange = (e) => {
         const formData = new FormData();
         const files = e.target.files;
@@ -183,7 +146,6 @@ class Editfeature extends Component {
             } else {
                 console.log(response.data);
                 var image = JSON.stringify(response.data);
-                //var int = typeof data;
 
                 Axios.post(`http://${ipAddress}:3001/changeimage`, {
                     id: this.state.id,
@@ -191,10 +153,6 @@ class Editfeature extends Component {
                     userStatus: 'feature',
                 }).then((response) => {
                     console.log(response.data);
-                    // document.cookie = `userInfo = ${JSON.stringify(
-                    //     response.data
-                    // )}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
-                    // // window.location.reload();
                 });
                 const { fileName, filePath } = JSON.parse(image);
                 console.log(filePath);
@@ -238,12 +196,11 @@ class Editfeature extends Component {
                                 style={{
                                     paddingTop: '80px',
                                     paddingBottom: '80px',
-                                    // display: "block",
-                                    //borderRadius: '20px',
                                 }}
                             >
                                 <div
                                     className="user-profile"
+                                    id="image"
                                     style={{
                                         borderRadius: '5px 10px 15px 20px',
                                     }}
@@ -266,27 +223,30 @@ class Editfeature extends Component {
                                                         '5px 10px 15px 20px solid',
                                                     borderColor: 'black',
                                                 }}
-                                            >
-                                                <input
-                                                    className="avatar-file h-100 w-100"
-                                                    type="file"
-                                                    name="file"
-                                                    // accept="image/*"
-                                                    onChange={
-                                                        this.handleImageOnChange
-                                                    }
-                                                />
-
-                                                <span className="glyphicon glyphicon-camera"></span>
-                                                <span>Change Image</span>
+                                            ></div>
+                                            <div className="overlay">
+                                                <span
+                                                    //href="#"
+                                                    className="icon"
+                                                    //title="User Profile"
+                                                >
+                                                    <FontAwesomeIcon
+                                                        //style={{ marginRight: 2 }}
+                                                        icon={faCamera}
+                                                        size="sm"
+                                                    />
+                                                    <input
+                                                        className="avatar-file h-100 w-100"
+                                                        type="file"
+                                                        name="file"
+                                                        onChange={
+                                                            this
+                                                                .handleImageOnChange
+                                                        }
+                                                    />
+                                                </span>
                                             </div>
                                         </a>
-
-                                        {/* 
-                         <img
-                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                            alt="Maxwell Admin"
-                            /> */}
                                     </div>
                                     {title && (
                                         <h5 className="user-name">{title}</h5>
@@ -294,20 +254,10 @@ class Editfeature extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div
-                            className="col-sm-6 card card-body mt-3"
-                            style={
-                                {
-                                    // backgroundColor: 'white',
-                                    //borderRadius: '10px',
-                                    //boxShadow: '2px 2px 2px	#A9A9A9',
-                                }
-                            }
-                        >
+                        <div className="col-sm-6 card card-body mt-3">
                             <h5 className="font-weight-bold ">
                                 Feature Project
                             </h5>
-                            {console.log('title', title, JSON.stringify(title))}
                             {
                                 <Formik
                                     enableReinitialize={true}
@@ -334,16 +284,9 @@ class Editfeature extends Component {
                                         if (!values.material) {
                                             errors.material = 'Required';
                                         }
-
-                                        // if (!values.date) {
-                                        //   errors.date = "Required";
-                                        // }
                                         if (!description) {
                                             errors.description = 'Required';
                                         }
-                                        // if (!fileName) {
-                                        //   errors.fileName = "Required Photos";
-                                        // }
                                         if (!summary) {
                                             errors.summary = 'Required';
                                         }
@@ -351,10 +294,6 @@ class Editfeature extends Component {
                                     }}
                                     onSubmit={(values, { setSubmitting }) => {
                                         setTimeout(() => {
-                                            // let stringData = "";
-                                            // if (uploadedFiles) {
-                                            //   stringData = JSON.stringify(uploadedFiles);
-                                            // }
                                             const {
                                                 email,
                                                 customerID,
@@ -370,10 +309,8 @@ class Editfeature extends Component {
                                                     title: values.title,
                                                     userinfo: email,
                                                     date: date,
-                                                    //fileName: fileName,
-                                                    //fileURL: filePath,
                                                     description: description,
-                                                    // files: uploadedFiles,
+
                                                     projectID: id,
                                                 }
                                             ).then((response) => {
@@ -394,7 +331,6 @@ class Editfeature extends Component {
                                         handleBlur,
                                         handleSubmit,
                                         isSubmitting,
-                                        /* and other goodies */
                                     }) => (
                                         <form onSubmit={handleSubmit}>
                                             {console.log(values)}
@@ -513,13 +449,13 @@ class Editfeature extends Component {
                                                         touched.fileName &&
                                                         errors.fileName}
                                                 </span>
-                                            </div>
-                                            <div className="row pl-3">
+                                            </div>*/}
+                                            {/* <div className="row">
                                                 {previewImage &&
                                                     previewImage.map(
                                                         (image) => (
                                                             <div
-                                                                className="col"
+                                                                className="col-lg"
                                                                 id="image"
                                                             >
                                                                 <img
@@ -542,11 +478,11 @@ class Editfeature extends Component {
                                                                         //href="#"
                                                                         className="icon text-danger"
                                                                         //title="User Profile"
-                                                                        onclick={() => {
-                                                                           onClickDelete(
-                                                                               image.filePath
-                                                                           );
-                                                                        }}
+                                                                        onClick={() =>
+                                                                            this.onDeleteClick(
+                                                                                image.filePath
+                                                                            )
+                                                                        }
                                                                     >
                                                                         <FontAwesomeIcon
                                                                             //style={{ marginRight: 2 }}
@@ -559,7 +495,8 @@ class Editfeature extends Component {
                                                                 </div>
                                                             </div>
                                                         )
-                                                    )} */}
+                                                    )}
+                                            </div> */}
                                             <div className="form-group mb-2">
                                                 <label
                                                     className="font-weight-bold small"
@@ -594,48 +531,6 @@ class Editfeature extends Component {
                                                         errors.summary}
                                                 </span>
                                             </div>{' '}
-                                            {/* <div className="form-group mb-2">
-                      <label
-                        className="font-weight-bold small"
-                        htmlFor="userinfo"
-                      >
-                        User info:
-                      </label>
-
-                      <input
-                        type="email"
-                        id="userinfo"
-                        className="form-control"
-                        placeholder="Enter email address"
-                        name="userinfo"
-                        onChange={handleChange}
-                        value={userinfo}
-                      />
-                      <span className="text-danger  text-center">
-                        {errors.userinfo && touched.userinfo && errors.userinfo}
-                      </span>
-                    </div>{" "} */}
-                                            {/* <div className="form-group mb-2">
-                                  <label
-                                    className="font-weight-bold small"
-                                    htmlFor="userinfo"
-                                  >
-                                    Date:
-                                  </label>
-
-                                  <input
-                                    type="date"
-                                    id="date"
-                                    className="form-control"
-                                    placeholder=""
-                                    name="date"
-                                    onChange={handleChange}
-                                    value={values.date}
-                                  />
-                                  <span className="text-danger  text-center">
-                                    {errors.date && touched.date && errors.date}
-                                  </span>
-                                </div>{" "} */}
                                             <div className="form-group mb-2">
                                                 <label className="font-weight-bold small">
                                                     Detail Description :
@@ -654,21 +549,6 @@ class Editfeature extends Component {
                                                         );
                                                     }}
                                                 ></CKEditor>
-                                                {/* <CKEditor
-                              editor={ClassicEditor}
-                              onChange={(e, editor) => {
-                                this.handleChange(e, editor);
-                              }}
-                            ></CKEditor> */}
-                                                {/* <textarea
-                        type="text"
-                        id="description"
-                        className="form-control"
-                        placeholder="Enter detail description of project"
-                        name="description"
-                        onChange={handleChange}
-                        value={values.description}
-                      /> */}
                                                 <span className="text-danger  text-center">
                                                     {errors.description &&
                                                         touched.description &&
@@ -676,7 +556,7 @@ class Editfeature extends Component {
                                                 </span>
                                             </div>{' '}
                                             <div className="row">
-                                                <div className="col">
+                                                <div className="col-lg">
                                                     {' '}
                                                     <button
                                                         type="submit"
@@ -690,7 +570,7 @@ class Editfeature extends Component {
                                                         Save Changes
                                                     </button>
                                                 </div>
-                                                <div className="col">
+                                                <div className="col-lg">
                                                     {' '}
                                                     <a
                                                         type="submit"
@@ -699,7 +579,7 @@ class Editfeature extends Component {
                                                             width: '150px',
                                                             margin: 'auto',
                                                         }}
-                                                        href="/edit-projectlist"
+                                                        // href="/edit-projectlist"
                                                     >
                                                         Cancel
                                                     </a>

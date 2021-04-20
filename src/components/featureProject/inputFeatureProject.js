@@ -1,29 +1,15 @@
 import React, { Component } from 'react';
-//import "./feature.css";
-import { Modal } from 'react-bootstrap';
-import Axios from 'axios';
-import {
-    ContactsOutlined,
-    DesktopWindows,
-    LaptopWindows,
-} from '@material-ui/icons';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser from 'react-html-parser';
 import { Formik } from 'formik';
-import Cookies from 'universal-cookie';
 import { GetCookiesInfo } from '../global/GlobalFunction';
-
 import './feature.css';
+import Axios from 'axios';
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
 
-const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach((val) => val.length > 0 && (valid = false));
-    return valid;
-};
+
 let file = [];
 class feature extends Component {
     constructor() {
@@ -181,14 +167,7 @@ class feature extends Component {
                     <div className="row">
                         <div className="col-sm-3"></div>
                         <div
-                            className="col-sm-6 card card-body mt-5 "
-                            style={
-                                {
-                                    // backgroundColor: 'white',
-                                    // borderRadius: '10px',
-                                    // boxShadow: '2px 2px 2px	#A9A9A9',
-                                }
-                            }
+                            className="col-sm-6 card card-body mt-5 "                       
                         >
                             <h5 className="font-weight-bold ">
                                 Feature Project
@@ -198,7 +177,6 @@ class feature extends Component {
                                     process: '',
                                     material: '',
                                     title: '',
-                                    //date: "",
                                     summary: '',
                                     userinfo: '',
                                     data: '',
@@ -221,9 +199,6 @@ class feature extends Component {
                                     if (!description) {
                                         errors.description = 'Required';
                                     }
-                                    // if (error) {
-                                    //   errors.fileName = error;
-                                    // } else
                                     if (!uploadedFiles) {
                                         errors.fileName = 'Required Photos';
                                     }
@@ -234,10 +209,6 @@ class feature extends Component {
                                 }}
                                 onSubmit={(values, { setSubmitting }) => {
                                     setTimeout(() => {
-                                        // let stringData = "";
-                                        // if (uploadedFiles) {
-                                        //   stringData = JSON.stringify(uploadedFiles);
-                                        // }
                                         const {
                                             email,
                                             customerID,
@@ -254,8 +225,6 @@ class feature extends Component {
                                                     title: values.title,
                                                     userinfo: email,
                                                     date: date,
-                                                    //fileName: fileName,
-                                                    //fileURL: filePath,
                                                     description: description,
                                                     files: uploadedFiles,
                                                     image: uploadedImage,
@@ -279,7 +248,6 @@ class feature extends Component {
                                     handleBlur,
                                     handleSubmit,
                                     isSubmitting,
-                                    /* and other goodies */
                                 }) => (
                                     <form onSubmit={handleSubmit}>
                                         <div className="row">
@@ -383,7 +351,7 @@ class feature extends Component {
                                                         }
                                                         accept=".jpeg, .png, or .jpg"
                                                     />
-                                                    {/* dimensions width:{width}, height:{height} */}
+                                                   
                                                     <span className="text-danger  text-center">
                                                         {errors.fileName &&
                                                             touched.fileName &&
@@ -432,8 +400,7 @@ class feature extends Component {
                                                 accept=".jpeg, .png, or .jpg"
                                                 ref={this.imgRef}
                                                 onLoad={this.onImgLoad}
-                                            />
-                                            {/* dimensions width:{width}, height:{height} */}
+                                            />                                        
                                             <span className="text-danger  text-center">
                                                 {errors.fileName &&
                                                     touched.fileName &&
@@ -493,55 +460,13 @@ class feature extends Component {
                                                     errors.summary}
                                             </span>
                                         </div>{' '}
-                                        {/* <div className="form-group mb-2">
-                      <label
-                        className="font-weight-bold small"
-                        htmlFor="userinfo"
-                      >
-                        User info:
-                      </label>
-
-                      <input
-                        type="email"
-                        id="userinfo"
-                        className="form-control"
-                        placeholder="Enter email address"
-                        name="userinfo"
-                        onChange={handleChange}
-                        value={userinfo}
-                      />
-                      <span className="text-danger  text-center">
-                        {errors.userinfo && touched.userinfo && errors.userinfo}
-                      </span>
-                    </div>{" "} */}
-                                        {/* <div className="form-group mb-2">
-                                  <label
-                                    className="font-weight-bold small"
-                                    htmlFor="userinfo"
-                                  >
-                                    Date:
-                                  </label>
-
-                                  <input
-                                    type="date"
-                                    id="date"
-                                    className="form-control"
-                                    placeholder=""
-                                    name="date"
-                                    onChange={handleChange}
-                                    value={values.date}
-                                  />
-                                  <span className="text-danger  text-center">
-                                    {errors.date && touched.date && errors.date}
-                                  </span>
-                                </div>{" "} */}
+                                       
                                         <div className="mb-2">
                                             <label className="font-weight-bold small">
                                                 Detail Description :
                                             </label>
                                             <CKEditor
-                                                editor={ClassicEditor}
-                                                //placeholder="Enter summary of project"
+                                                editor={ClassicEditor}                                           
                                                 config={{
                                                     placeholder:
                                                         'Add description',
@@ -552,22 +477,7 @@ class feature extends Component {
                                                         editor
                                                     );
                                                 }}
-                                            ></CKEditor>
-                                            {/* <CKEditor
-                              editor={ClassicEditor}
-                              onChange={(e, editor) => {
-                                this.handleChange(e, editor);
-                              }}
-                            ></CKEditor> */}
-                                            {/* <textarea
-                        type="text"
-                        id="description"
-                        className="form-control"
-                        placeholder="Enter detail description of project"
-                        name="description"
-                        onChange={handleChange}
-                        value={values.description}
-                      /> */}
+                                            ></CKEditor>                                           
                                             <span className="text-danger  text-center">
                                                 {errors.description &&
                                                     touched.description &&
