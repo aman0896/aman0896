@@ -79,16 +79,13 @@ class EditProfile extends Component {
                                     //cookieData.userInfo[0].firstname = firstName;
                                     // console.log(cookieData.userInfo[0].firstname);
                                     axios
-                                        .post(
-                                            `http://${window.host}/editProfile`,
-                                            {
-                                                id: id,
-                                                firstname: firstName,
-                                                lastname: lastName,
-                                                email: email,
-                                                phonenumber: phoneNumber,
-                                            }
-                                        )
+                                        .post(`${window.host}/editProfile`, {
+                                            id: id,
+                                            firstname: firstName,
+                                            lastname: lastName,
+                                            email: email,
+                                            phonenumber: phoneNumber,
+                                        })
                                         .then((response) => {
                                             console.log(response.data);
                                             document.cookie = `userInfo = ${JSON.stringify(

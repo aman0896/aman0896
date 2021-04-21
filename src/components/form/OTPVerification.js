@@ -17,7 +17,7 @@ function OTPVerification(props) {
     };
     const data = location.data;
     useEffect(() => {
-        axios.post(`http://${window.host}/verify-password`).then((response) => {
+        axios.post(`${window.host}/verify-password`).then((response) => {
             setPath(response.data.locate);
         });
     }, []);
@@ -29,7 +29,7 @@ function OTPVerification(props) {
         console.log(data);
 
         axios
-            .post(`http://${window.host}/verify`, {
+            .post(`${window.host}/verify`, {
                 otp: otp,
                 email: data,
             })

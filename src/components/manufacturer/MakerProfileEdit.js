@@ -42,30 +42,28 @@ function EditManufacturerProfile(props) {
 
     //#region get_service_data_from_db
     useEffect(() => {
-        axios
-            .post(`http://${window.host}/manufacturer/${id}`)
-            .then((response) => {
-                if (response.data) {
-                    const { hub, services } = response.data;
-                    setCurrentHub(hub[0]);
-                    const hubService = services.map((service) => {
-                        console.log(service);
-                        const { Name, Material_Name, Service_ID } = service;
-                        var data = {
-                            fabricationService: {
-                                value: Service_ID,
-                                label: Name,
-                            },
-                            materialDetails: JSON.parse(Material_Name),
-                        };
-                        return data;
-                    });
-                    setHubService(hubService);
-                    setSaveChangeButton(false);
-                    const { fileName, filePath } = JSON.parse(hub[0].Logo);
-                    setImagePath(filePath);
-                }
-            });
+        axios.post(`${window.host}/manufacturer/${id}`).then((response) => {
+            if (response.data) {
+                const { hub, services } = response.data;
+                setCurrentHub(hub[0]);
+                const hubService = services.map((service) => {
+                    console.log(service);
+                    const { Name, Material_Name, Service_ID } = service;
+                    var data = {
+                        fabricationService: {
+                            value: Service_ID,
+                            label: Name,
+                        },
+                        materialDetails: JSON.parse(Material_Name),
+                    };
+                    return data;
+                });
+                setHubService(hubService);
+                setSaveChangeButton(false);
+                const { fileName, filePath } = JSON.parse(hub[0].Logo);
+                setImagePath(filePath);
+            }
+        });
     }, []);
     //#endregion
 
@@ -88,7 +86,7 @@ function EditManufacturerProfile(props) {
         formData.append('id', manufacturerID);
         console.log(file, formData);
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 document: 'documents',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -107,7 +105,7 @@ function EditManufacturerProfile(props) {
                     console.log(data);
 
                     axios
-                        .post(`http://${window.host}/changeimage`, {
+                        .post(`${window.host}/changeimage`, {
                             id: manufacturerID,
                             image: data,
                             userStatus: userStatus,
@@ -174,7 +172,7 @@ function EditManufacturerProfile(props) {
     //#region on Save Changes_Manufacturer_Services
     const OnSaveChange = () => {
         axios
-            .post(`http://${window.host}/update-services/${id}`, {
+            .post(`${window.host}/update-services/${id}`, {
                 hubService: hubService,
             })
             .then((response) => {
@@ -282,7 +280,7 @@ function EditManufacturerProfile(props) {
                                             console.log('submit');
                                             axios
                                                 .post(
-                                                    `http://${window.host}/editManufacturerProfile`,
+                                                    `${window.host}/editManufacturerProfile`,
                                                     {
                                                         id: manufacturerID,
                                                         contactPerson:
@@ -528,7 +526,7 @@ function EditManufacturerProfile(props) {
                                         console.log(values.email);
                                         axios
                                             .post(
-                                                `http://${window.host}/change-password`,
+                                                `${window.host}/change-password`,
                                                 {
                                                     new_password:
                                                         values.new_password,
@@ -654,7 +652,7 @@ function EditManufacturerProfile(props) {
                                     setTimeout(() => {
                                         axios
                                             .post(
-                                                `http://${window.host}/update-details`,
+                                                `${window.host}/update-details`,
                                                 {
                                                     briefDescriptiom:
                                                         values.briefDescriptiom,

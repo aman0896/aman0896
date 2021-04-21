@@ -30,7 +30,7 @@ const CardView = (props) => {
 
     useEffect(() => {
         axios
-            .post('http://localhost:3001/get-hub-services', {
+            .post(`${window.host}/get-hub-services`, {
                 hubID: props.currentHub.Manufacturer_ID,
             })
             .then((response) => {
@@ -154,8 +154,9 @@ export const ManufacturingHubListView = (props) => {
         //#region get_material_list
         console.log('material', props.serviceList, 'ss', props.materialList);
         props.materialList.map((materialDetails) => {
-            console.log("md",materialDetails)
-            materialList += materialDetails.selectedMaterial.Material_Name + ',';
+            console.log('md', materialDetails);
+            materialList +=
+                materialDetails.selectedMaterial.Material_Name + ',';
         });
 
         var mn = materialList.lastIndexOf(',');

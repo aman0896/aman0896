@@ -37,7 +37,7 @@ function EditFeatureProjectList(props) {
 
     var filterProjectList;
     useEffect(() => {
-        axios.get(`http://${window.host}/feature-project`).then((response) => {
+        axios.get(`${window.host}/feature-project`).then((response) => {
             if (response.data) {
                 console.log(response.data);
                 projectList = response.data;
@@ -70,7 +70,7 @@ function EditFeatureProjectList(props) {
     };
     const handleDelete = () => {
         axios
-            .post(`http://${window.host}/delete-project`, {
+            .post(`${window.host}/delete-project`, {
                 id: ProjectID,
             })
             .then((response) => {

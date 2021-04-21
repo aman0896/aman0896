@@ -90,12 +90,12 @@ class NewQuote extends Component {
         const thickness = dropDownData.selectedThickness.label;
         const quantity = dropDownData.selectedQuantity.label;
         const { fileName, filePath } = fileData;
-        const validationPageUrl = `http://${window.host}/validation-page/${encryptedKey}`;
+        const validationPageUrl = `${window.host}/validation-page/${encryptedKey}`;
 
-        const fileURL = `http://${ipAddress}:3000/${filePath}`;
+        const fileURL = `${window.host}/${filePath}`;
 
         axios
-            .post(`http://${window.host}/order-specification`, {
+            .post(`${window.host}/order-specification`, {
                 modelName: fileName,
                 fabricationService: fabricationProcess,
                 material: material,

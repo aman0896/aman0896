@@ -29,7 +29,7 @@ function OrderStatusEdit({
             console.log('data', tempData);
             setJsonData(tempData);
             axios
-                .post(`http://${window.host}/update-order-status`, {
+                .post(`${window.host}/update-order-status`, {
                     updatedStatus: selectedValue.label,
                     orderID: orderID,
                 })

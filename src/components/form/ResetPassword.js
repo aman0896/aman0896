@@ -62,7 +62,7 @@ export default function Reset(props) {
                                         // console.log(values.email);
                                         axios
                                             .post(
-                                                `http://${window.host}/new-password`,
+                                                `${window.host}/new-password`,
                                                 {
                                                     password: values.password,
                                                     confirm_password:

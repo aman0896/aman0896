@@ -15,7 +15,7 @@ class ManufacturingHubsView extends Component {
 
     componentDidMount() {
         //#region Get all Registered Hubs and Its services
-        axios.post(`http://${window.host}/registeredhubs`).then((response) => {
+        axios.post(`${window.host}/registeredhubs`).then((response) => {
             if (response.data) {
                 const { manufacturerList, serviceList } = response.data;
                 manufacturerList.map((hub) => {

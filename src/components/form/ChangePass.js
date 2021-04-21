@@ -65,7 +65,7 @@ export default function ChangePass() {
                                         console.log(values.email);
                                         axios
                                             .post(
-                                                `http://${window.host}:3001/change-password`,
+                                                `${window.host}/change-password`,
                                                 {
                                                     new_password:
                                                         values.new_password,

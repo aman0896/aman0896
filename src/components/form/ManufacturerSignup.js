@@ -34,7 +34,7 @@ class ManufacturerSignup extends Component {
         formData.append('file', file[0]);
         formData.append('document', 'documents');
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 document: 'documents',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -70,7 +70,7 @@ class ManufacturerSignup extends Component {
         formData.append('document', 'logo');
         console.log(file, formData);
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 document: 'documents',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -253,7 +253,7 @@ class ManufacturerSignup extends Component {
                                         }
                                         axios
                                             .post(
-                                                `http://${window.host}/manufacturer-signup`,
+                                                `${window.host}/manufacturer-signup`,
                                                 {
                                                     email: values.email,
                                                     name:

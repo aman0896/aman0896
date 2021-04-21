@@ -91,7 +91,7 @@ class feature extends Component {
         formData.append('document', 'projectUploads');
         console.log(files, formData);
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -122,7 +122,7 @@ class feature extends Component {
         formData.append('document', 'projectMainPhoto');
         console.log(files, formData);
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -218,7 +218,7 @@ class feature extends Component {
                                         if (!error) {
                                             axios
                                                 .post(
-                                                    `http://${window.host}/feature-project`,
+                                                    `${window.host}/feature-project`,
                                                     {
                                                         id: customerID,
                                                         process: values.process,

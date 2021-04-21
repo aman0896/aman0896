@@ -30,7 +30,7 @@ const MakerProf = () => {
     //#region get_service_data_from_db
     useEffect(() => {
         axios
-            .post(`http://${window.host}/manufacturer/${manufacturerID}`)
+            .post(`${window.host}/manufacturer/${manufacturerID}`)
             .then((response) => {
                 if (response.data) {
                     const { hub, services } = response.data;

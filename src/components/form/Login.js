@@ -24,7 +24,7 @@ export default class Login extends Component {
     onClickVerify = (event) => {
         event.preventDefault();
         axios
-            .post(`http://${window.host}/verify-login`, {
+            .post(`${window.host}/verify-login`, {
                 email: this.state.email,
             })
             .then((response) => {
@@ -98,14 +98,10 @@ export default class Login extends Component {
                                     onSubmit={(values, { setSubmitting }) => {
                                         setTimeout(() => {
                                             axios
-                                                .post(
-                                                    `http://${window.host}/login`,
-                                                    {
-                                                        email: values.email,
-                                                        password:
-                                                            values.password,
-                                                    }
-                                                )
+                                                .post(`${window.host}/login`, {
+                                                    email: values.email,
+                                                    password: values.password,
+                                                })
                                                 .then((response) => {
                                                     if (
                                                         response.data.userInfo

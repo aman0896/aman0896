@@ -10,16 +10,14 @@ function ManufacturerOrderStatus(props) {
     const { id } = props.match.params;
 
     useEffect(() => {
-        axios
-            .post(`http://${window.host}/${id}/order-status`)
-            .then((response) => {
-                if (response) {
-                    if (response.data) {
-                        const data = response.data;
-                        setOrderData(data);
-                    }
+        axios.post(`${window.host}/${id}/order-status`).then((response) => {
+            if (response) {
+                if (response.data) {
+                    const data = response.data;
+                    setOrderData(data);
                 }
-            });
+            }
+        });
         // const json = localStorage.getItem("items");
         // setSavedItems(JSON.parse(json));
         // const savedItems = JSON.parse(json);

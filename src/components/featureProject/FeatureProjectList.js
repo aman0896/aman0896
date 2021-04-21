@@ -24,7 +24,7 @@ function FeatureProjectList(props) {
     const [selected, setSelected] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://${window.host}/feature-project`).then((response) => {
+        axios.get(`${window.host}/feature-project`).then((response) => {
             if (response.data) {
                 console.log(response.data);
                 setfeatureProject(response.data);

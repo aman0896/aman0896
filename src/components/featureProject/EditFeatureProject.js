@@ -70,7 +70,7 @@ class Editfeature extends Component {
         console.log(data);
         this.setState({ id: data });
         axios
-            .post(`http://${window.host}:3001/edit-project`, { id: data })
+            .post(`${window.host}/edit-project`, { id: data })
             .then((response) => {
                 if (response.data) {
                     console.log(response.data);
@@ -111,7 +111,7 @@ class Editfeature extends Component {
         formData.append('document', 'projectUploads');
         console.log(files, formData);
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -136,7 +136,7 @@ class Editfeature extends Component {
         formData.append('document', 'projectMainPhoto');
         console.log(files, formData);
         axios
-            .post(`http://${window.host}/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -150,7 +150,7 @@ class Editfeature extends Component {
                     var image = JSON.stringify(response.data);
 
                     axios
-                        .post(`http://${window.host}/changeimage`, {
+                        .post(`${window.host}/changeimage`, {
                             id: this.state.id,
                             image: image,
                             userStatus: 'feature',
@@ -305,7 +305,7 @@ class Editfeature extends Component {
                                             console.log(uploadedFiles);
                                             axios
                                                 .post(
-                                                    `http://${window.host}/update-project`,
+                                                    `${window.host}/update-project`,
                                                     {
                                                         customerID: customerID,
                                                         process: values.process,

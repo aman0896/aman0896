@@ -97,7 +97,7 @@ class Register extends Component {
                                             setTimeout(() => {
                                                 axios
                                                     .post(
-                                                        `http://${window.host}/register`,
+                                                        `${window.host}/register`,
                                                         {
                                                             firstName:
                                                                 values.firstName,

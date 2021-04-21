@@ -62,7 +62,7 @@ function ModalDelete({ showModal, handleClose, Project_ID }) {
         e.preventDefault();
 
         axios
-            .post(`http://${window.host}/delete-project`, {
+            .post(`${window.host}/delete-project`, {
                 id: Project_ID,
             })
             .then((response) => {

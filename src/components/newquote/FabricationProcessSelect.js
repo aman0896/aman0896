@@ -49,7 +49,7 @@ function FabricationProcessSelect({ title, parentCallback }) {
         setfabricationlabel(obj);
         if (obj != null) {
             axios
-                .post(`http://${window.host}/materials`, {
+                .post(`${window.host}/materials`, {
                     fabricationID: obj.Service_ID,
                 })
                 .then((response) => {
@@ -66,7 +66,7 @@ function FabricationProcessSelect({ title, parentCallback }) {
         if (obj != null) {
             console.log(obj);
             axios
-                .post(`http://${window.host}/hublist`, {
+                .post(`${window.host}/hublist`, {
                     fabricationService: obj.Name,
                 })
                 .then((response) => {
@@ -108,13 +108,11 @@ function FabricationProcessSelect({ title, parentCallback }) {
     ]);
 
     useEffect(() => {
-        axios
-            .post(`http://${window.host}/fabricationservice`)
-            .then((response) => {
-                if (response.data) {
-                    setFabricationService(response.data);
-                }
-            });
+        axios.post(`${window.host}/fabricationservice`).then((response) => {
+            if (response.data) {
+                setFabricationService(response.data);
+            }
+        });
     }, []);
 
     return (

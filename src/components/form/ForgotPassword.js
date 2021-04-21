@@ -51,7 +51,7 @@ export default function ForgotPassword(props) {
                                     setTimeout(() => {
                                         axios
                                             .post(
-                                                `http://${window.host}:3001/reset-password`,
+                                                `${window.host}/reset-password`,
                                                 {
                                                     email: values.email,
                                                     path:

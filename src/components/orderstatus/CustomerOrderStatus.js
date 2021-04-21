@@ -11,17 +11,15 @@ function CustomerOrderStatus(props) {
     const [orderData, setOrderData] = useState();
 
     useEffect(() => {
-        axios
-            .post(`http://${window.host}/${id}/order-status`)
-            .then((response) => {
-                if (response) {
-                    if (response.data) {
-                        const data = response.data;
-                        console.log(data);
-                        setOrderData(data);
-                    }
+        axios.post(`${window.host}/${id}/order-status`).then((response) => {
+            if (response) {
+                if (response.data) {
+                    const data = response.data;
+                    console.log(data);
+                    setOrderData(data);
                 }
-            });
+            }
+        });
         const json = localStorage.getItem('items');
         setSavedItems(JSON.parse(json));
         // const savedItems = JSON.parse(json);

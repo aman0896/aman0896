@@ -6,7 +6,7 @@ import { Link, animateScroll as scroll } from 'react-scroll';
 //import PlaceOrder from "./placeOrder";
 import './navbar.css';
 //import Login from "./Login";
-import Axios from 'axios';
+import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import onGetInstantBtnClick, { GetCookiesInfo } from '../global/GlobalFunction';
@@ -82,10 +82,7 @@ function LogoutButton({ username, customerID, manufacturerID }, props) {
             >
                 {/* <img src="/projectUploads/avatar.jpg" alt="Avatar" className="avatar"></img> */}
                 <i className="fa fa-fw fa-user fa-lg"></i>
-                <span
-                >
-                    {username.charAt(0)}
-                </span>
+                <span>{username.charAt(0)}</span>
             </a>
 
             <ul className="dropdown-menu bg-primary dropdown-menu-left">
@@ -164,7 +161,7 @@ class NavBar extends Component {
     };
 
     componentDidMount() {
-        Axios.defaults.withCredentials = true;
+        axios.defaults.withCredentials = true;
         if (GetCookiesInfo() != undefined) {
             const {
                 userName,
@@ -308,7 +305,7 @@ class NavBar extends Component {
                                 <li className="dropdown nav-item">
                                     <a
                                         className="nav-link pl-1"
-                                                 href="/knowledgebank1"
+                                        href="/knowledgebank1"
                                         style={{ color: 'white' }}
                                     >
                                         Knowledge Bank

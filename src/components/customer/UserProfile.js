@@ -26,20 +26,18 @@ const UserProf = () => {
     const [customer, setCustomer] = useState();
     //#region get_customer_data_from_db
     useEffect(() => {
-        axios
-            .post(`http://${window.host}/customer/${customerID}`)
-            .then((response) => {
-                if (response.data) {
-                    console.log(response.data[0]);
-                    setCustomer(response.data[0]);
-                    if (response.data[0].Profile_Image) {
-                        const { fileName, filePath } = JSON.parse(
-                            response.data[0].Profile_Image
-                        );
-                        setImagePath(filePath);
-                    }
+        axios.post(`${window.host}/customer/${customerID}`).then((response) => {
+            if (response.data) {
+                console.log(response.data[0]);
+                setCustomer(response.data[0]);
+                if (response.data[0].Profile_Image) {
+                    const { fileName, filePath } = JSON.parse(
+                        response.data[0].Profile_Image
+                    );
+                    setImagePath(filePath);
                 }
-            });
+            }
+        });
     }, []);
     //#endregion
 
