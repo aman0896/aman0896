@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import React, { Component, useState, useEffect } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import './loginPage.css';
 import FormTextBox, { PasswordField } from '../global/TextBox';
 import { Route, Switch, Link } from 'react-router-dom';
@@ -23,19 +23,21 @@ export default class Login extends Component {
 
     onClickVerify = (event) => {
         event.preventDefault();
-        Axios.post('http://localhost:3001/verify-login', {
-            email: this.state.email,
-        }).then((response) => {
-            if (response.data.message) {
-                this.props.history.push({
-                    pathname: '/verify',
-                    data: this.state.email,
-                    state: { email: this.state.email },
-                    //send data to verify page
-                });
-                console.log(this.state.email);
-            }
-        });
+        axios
+            .post(`${window.host}/verify-login`, {
+                email: this.state.email,
+            })
+            .then((response) => {
+                if (response.data.message) {
+                    this.props.history.push({
+                        pathname: '/verify',
+                        data: this.state.email,
+                        state: { email: this.state.email },
+                        //send data to verify page
+                    });
+                    console.log(this.state.email);
+                }
+            });
     };
 
     render() {
@@ -95,36 +97,50 @@ export default class Login extends Component {
                                     }}
                                     onSubmit={(values, { setSubmitting }) => {
                                         setTimeout(() => {
-                                            Axios.post(
-                                                `http://localhost:3001/login`,
-                                                {
+                                            axios
+                                                .post(`${window.host}/login`, {
                                                     email: values.email,
                                                     password: values.password,
-                                                }
-                                            ).then((response) => {
-                                                if (
-                                                    response.data.message &&
-                                                    response.data.verified === 0
-                                                ) {
-                                                    this.setState({
-                                                        error:
+                                                })
+                                                .then((response) => {
+                                                    if (
+                                                        response.data.userInfo
+                                                    ) {
+                                                        var date = new Date();
+                                                        date.setFullYear(
+                                                            date.getFullYear() +
+                                                                1
+                                                        );
+                                                        document.cookie = `userInfo = ${JSON.stringify(
                                                             response.data
-                                                                .message,
-                                                        hidden: false,
-                                                        email: values.email,
-                                                    });
-                                                } else if (
-                                                    response.data.message
-                                                ) {
-                                                    this.setState({
-                                                        error:
-                                                            response.data
-                                                                .message,
-                                                    });
-                                                } else {
-                                                    window.location.href = '/';
-                                                }
-                                            });
+                                                        )}; expires= ${date.toUTCString()}; path=/`; //Storing login info value in Cookie
+                                                    }
+
+                                                    if (
+                                                        response.data.message &&
+                                                        response.data
+                                                            .verified === 0
+                                                    ) {
+                                                        this.setState({
+                                                            error:
+                                                                response.data
+                                                                    .message,
+                                                            hidden: false,
+                                                            email: values.email,
+                                                        });
+                                                    } else if (
+                                                        response.data.message
+                                                    ) {
+                                                        this.setState({
+                                                            error:
+                                                                response.data
+                                                                    .message,
+                                                        });
+                                                    } else {
+                                                        window.location.href =
+                                                            '/';
+                                                    }
+                                                });
                                             setSubmitting(false);
                                         }, 100);
                                     }}

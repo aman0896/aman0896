@@ -32,45 +32,41 @@ function ManufacturerViewProfile(props) {
     var [hubService, setHubService] = useState();
 
     useEffect(() => {
-        axios
-            .post(`http://localhost:3001/manufacturer/${id}`)
-            .then((response) => {
-                if (response.data) {
-                    const { hub, services } = response.data;
-                    setData(hub[0]);
-                    setServiceList(services);
-                    if (hub[0].Other_Services) {
-                        setOtherServices(JSON.parse(hub[0].Other_Services));
-                    }
-
-                    const { fileName, filePath } = JSON.parse(hub[0].Logo);
-                    setFilePath(filePath);
+        axios.post(`${window.host}/manufacturer/${id}`).then((response) => {
+            if (response.data) {
+                const { hub, services } = response.data;
+                setData(hub[0]);
+                setServiceList(services);
+                if (hub[0].Other_Services) {
+                    setOtherServices(JSON.parse(hub[0].Other_Services));
                 }
-            });
+
+                const { fileName, filePath } = JSON.parse(hub[0].Logo);
+                setFilePath(filePath);
+            }
+        });
     }, []);
 
     useEffect(() => {
-        axios
-            .post(`http://localhost:3001/manufacturer/${id}`)
-            .then((response) => {
-                if (response.data) {
-                    const { hub, services } = response.data;
-                    // setCurrentHub(hub[0]);
-                    const hubService = services.map((service) => {
-                        console.log(service);
-                        const { Name, Material_Name, Service_ID } = service;
-                        var data = {
-                            fabricationService: {
-                                value: Service_ID,
-                                label: Name,
-                            },
-                            materialDetails: JSON.parse(Material_Name),
-                        };
-                        return data;
-                    });
-                    setHubService(hubService);
-                }
-            });
+        axios.post(`${window.host}/manufacturer/${id}`).then((response) => {
+            if (response.data) {
+                const { hub, services } = response.data;
+                // setCurrentHub(hub[0]);
+                const hubService = services.map((service) => {
+                    console.log(service);
+                    const { Name, Material_Name, Service_ID } = service;
+                    var data = {
+                        fabricationService: {
+                            value: Service_ID,
+                            label: Name,
+                        },
+                        materialDetails: JSON.parse(Material_Name),
+                    };
+                    return data;
+                });
+                setHubService(hubService);
+            }
+        });
     }, []);
 
     //#region view_otherservices

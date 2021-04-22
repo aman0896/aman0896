@@ -16,7 +16,7 @@ function FeatureProjectView(props) {
     useEffect(() => {
         const { id } = props.match.params;
         console.log(id);
-        axios.post(`http://localhost:3001/project/${id}`).then((response) => {
+        axios.post(`${window.host}/project/${id}`).then((response) => {
             if (response.data) {
                 console.log(response.data);
                 const project = response.data;

@@ -24,23 +24,21 @@ export async function GetCookiesInfo() {
 
 //#region Get_Fabrication_Services
 export function GetFabricationServices(fabricationService) {
-    axios
-        .post(`http://${ipAddress}:3001/fabricationservice`)
-        .then((response) => {
-            console.log('line-67', response);
-            if (response.data) {
-                fabricationService(null, response.data);
-            } else {
-                fabricationService('err', null);
-            }
-        });
+    axios.post(`${window.host}/fabricationservice`).then((response) => {
+        console.log('line-67', response);
+        if (response.data) {
+            fabricationService(null, response.data);
+        } else {
+            fabricationService('err', null);
+        }
+    });
 }
 //#endregion
 
 //#region Get_Material_From_Fabrication_Service
 export function GetMaterialFromFabrication(serviceID, materials) {
     axios
-        .post(`http://${ipAddress}:3001/materials`, {
+        .post(`${window.host}/materials`, {
             fabricationID: serviceID,
         })
         .then((response) => {

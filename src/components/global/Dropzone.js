@@ -65,7 +65,7 @@ function Dropzone({
         formData.append('file', acceptedFiles[0]);
         formData.append('user', email);
         try {
-            Axios.post(`http://${ipAddress}:3001/upload`, formData, {
+            Axios.post(`${window.host}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -118,7 +118,7 @@ function Dropzone({
         const { fileName, filePath } = uploadedFile;
         console.log(uploadedFile);
         if (fileName === file.name) {
-            Axios.post(`http://${ipAddress}:3001/delete`, {
+            Axios.post(`${window.host}/delete`, {
                 filePath: filePath,
             }).then((response) => {
                 if (response.data) {

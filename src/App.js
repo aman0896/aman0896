@@ -3,6 +3,8 @@ import Routing from './components/main/Routing';
 import { GetCookiesInfo } from './components/global/GlobalFunction';
 import './App.css';
 
+window.host = 'localhost:3001'; //globalvariable
+
 class App extends Component {
     state = {
         isAuth: false,

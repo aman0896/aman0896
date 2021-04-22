@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dropzone from '../global/Dropzone';
 import HubListArea from './HubListArea';
 import '../global/dropZone.css';
-import Axios from 'axios';
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { GetCookiesInfo } from '../global/GlobalFunction';
 import FabricationProcessSelect from './FabricationProcessSelect';
@@ -104,30 +104,33 @@ class NewQuote extends Component {
         const thickness = dropDownData.selectedThickness.label;
         const quantity = dropDownData.selectedQuantity.label;
         const { fileName, filePath } = fileData;
-        const validationPageUrl = `http://${ipAddress}:3000/validation-page`;
+        const validationPageUrl = `${window.host}/validation-page/${encryptedKey}`;
 
-        const fileURL = `http://${ipAddress}:3000/${filePath}`;
+        const fileURL = `${window.host}/${filePath}`;
 
-        Axios.post(`http://${ipAddress}:3001/order-specification`, {
-            modelName: fileName,
-            fabricationService: fabricationProcess,
-            material: material,
-            thickness: thickness,
-            quantity: quantity,
-            modelPath: fileURL,
-            customerID: uid,
-            manufacturerID: Manufacturer_ID,
-            validationPagePath: validationPageUrl,
-            orderType: orderTypes,
-        }).then((response) => {
-            console.log(response.data);
-            if (response.data.message) {
-                this.setState({
-                    message: response.data.message,
-                    isSuccess: false,
-                });
-            }
-        });
+        axios
+            .post(`${window.host}/order-specification`, {
+                modelName: fileName,
+                fabricationService: fabricationProcess,
+                material: material,
+                thickness: thickness,
+                quantity: quantity,
+                modelPath: fileURL,
+                customerID: uid,
+                manufacturerID: Manufacturer_ID,
+                validationPagePath: validationPageUrl,
+                orderType: orderTypes,
+                validationPagePath: validationPageUrl,
+            })
+            .then((response) => {
+                console.log(response.data);
+                if (response.data.message) {
+                    this.setState({
+                        message: response.data.message,
+                        isSuccess: false,
+                    });
+                }
+            });
     };
 
     handleCallback = (childData) => {

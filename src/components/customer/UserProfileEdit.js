@@ -34,20 +34,18 @@ const EditUserProf = (props) => {
     const [customer, setCustomer] = useState();
 
     useEffect(() => {
-        axios
-            .post(`http://localhost:3001/customer/${customerID}`)
-            .then((response) => {
-                if (response.data) {
-                    console.log(response.data[0]);
-                    setCustomer(response.data[0]);
-                    if (response.data[0].Profile_Image) {
-                        const { fileName, filePath } = JSON.parse(
-                            response.data[0].Profile_Image
-                        );
-                        setImagePath(filePath);
-                    }
+        axios.post(`${window.host}/customer/${customerID}`).then((response) => {
+            if (response.data) {
+                console.log(response.data[0]);
+                setCustomer(response.data[0]);
+                if (response.data[0].Profile_Image) {
+                    const { fileName, filePath } = JSON.parse(
+                        response.data[0].Profile_Image
+                    );
+                    setImagePath(filePath);
                 }
-            });
+            }
+        });
     }, []);
 
     const handleOnchangeimage = (e) => {
@@ -60,7 +58,7 @@ const EditUserProf = (props) => {
         formData.append('id', customerID);
         console.log(file, formData);
         axios
-            .post(`http://${ipAddress}:3001/imageupload`, formData, {
+            .post(`${window.host}/imageupload`, formData, {
                 document: 'documents',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -79,7 +77,7 @@ const EditUserProf = (props) => {
                     console.log(data);
 
                     axios
-                        .post(`http://${ipAddress}:3001/changeimage`, {
+                        .post(`${window.host}/changeimage`, {
                             id: customerID,
                             image: data,
                             userStatus: userStatus,
@@ -224,7 +222,7 @@ const EditUserProf = (props) => {
                                         console.log('submit');
                                         axios
                                             .post(
-                                                `http://${ipAddress}:3001/editProfile`,
+                                                `${window.host}/editProfile`,
                                                 {
                                                     id: customerID,
                                                     firstname: values.firstName,
@@ -440,7 +438,7 @@ const EditUserProf = (props) => {
                                         console.log(values.email);
                                         axios
                                             .post(
-                                                `http://${ipAddress}:3001/change-password`,
+                                                `${window.host}/change-password`,
                                                 {
                                                     new_password:
                                                         values.new_password,

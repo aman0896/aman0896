@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import Axios from 'axios';
+import axios from 'axios';
 import DropDown from '../global/DropDown';
 
 const localIpUrl = require('local-ip-url');
@@ -48,14 +48,16 @@ function FabricationProcessSelect({ title, parentCallback }) {
     const onFabricationServiceChange = (obj) => {
         setfabricationlabel(obj);
         if (obj != null) {
-            Axios.post(`http://${ipAddress}:3001/materials`, {
-                fabricationID: obj.Service_ID,
-            }).then((response) => {
-                if (response.data) {
-                    setSelectedMaterial(response.data[0]);
-                    setMaterials(response.data);
-                }
-            });
+            axios
+                .post(`${window.host}/materials`, {
+                    fabricationID: obj.Service_ID,
+                })
+                .then((response) => {
+                    if (response.data) {
+                        setSelectedMaterial(response.data[0]);
+                        setMaterials(response.data);
+                    }
+                });
         } else {
             setSelectedMaterial(null);
             setMaterials();
@@ -63,15 +65,17 @@ function FabricationProcessSelect({ title, parentCallback }) {
 
         if (obj != null) {
             console.log(obj);
-            Axios.post(`http://${ipAddress}:3001/hublist`, {
-                fabricationService: obj.Name,
-            }).then((response) => {
-                if (response.data.length > 0) {
-                    setHubList(response.data);
-                } else {
-                    setHubList([]);
-                }
-            });
+            axios
+                .post(`${window.host}/hublist`, {
+                    fabricationService: obj.Name,
+                })
+                .then((response) => {
+                    if (response.data.length > 0) {
+                        setHubList(response.data);
+                    } else {
+                        setHubList([]);
+                    }
+                });
         }
     };
 
@@ -104,13 +108,11 @@ function FabricationProcessSelect({ title, parentCallback }) {
     ]);
 
     useEffect(() => {
-        Axios.post(`http://${ipAddress}:3001/fabricationservice`).then(
-            (response) => {
-                if (response.data) {
-                    setFabricationService(response.data);
-                }
+        axios.post(`${window.host}/fabricationservice`).then((response) => {
+            if (response.data) {
+                setFabricationService(response.data);
             }
-        );
+        });
     }, []);
 
     return (

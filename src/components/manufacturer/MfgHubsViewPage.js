@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import { ManufacturingHubListView } from '../global/card';
 import '../main/style.css';
@@ -15,7 +15,7 @@ class ManufacturingHubsView extends Component {
 
     componentDidMount() {
         //#region Get all Registered Hubs and Its services
-        Axios.post('http://localhost:3001/registeredhubs').then((response) => {
+        axios.post(`${window.host}/registeredhubs`).then((response) => {
             if (response.data) {
                 const { manufacturerList, serviceList } = response.data;
                 manufacturerList.map((hub) => {

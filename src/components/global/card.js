@@ -31,7 +31,7 @@ const CardView = (props) => {
 
     useEffect(() => {
         axios
-            .post('http://localhost:3001/get-hub-services', {
+            .post(`${window.host}/get-hub-services`, {
                 hubID: props.currentHub.Manufacturer_ID,
             })
             .then((response) => {

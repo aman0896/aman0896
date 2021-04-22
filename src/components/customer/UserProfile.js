@@ -18,7 +18,7 @@ const UserProf = () => {
 
     const [imagePath, setImagePath] = useState(
         '/profileImage/3f9470b34a8e3f526dbdb022f9f19cf7.jpg'
-    );;
+    );
 
     const onClickEditProfile = () => {
         window.location.href = `/${customerID}/customer-profile`;
@@ -26,20 +26,18 @@ const UserProf = () => {
     const [customer, setCustomer] = useState();
     //#region get_customer_data_from_db
     useEffect(() => {
-        axios
-            .post(`http://localhost:3001/customer/${customerID}`)
-            .then((response) => {
-                if (response.data) {
-                    console.log(response.data[0]);
-                    setCustomer(response.data[0]);
-                    if (response.data[0].Profile_Image) {
-                        const { fileName, filePath } = JSON.parse(
-                            response.data[0].Profile_Image
-                        );
-                        setImagePath(filePath);
-                    }
+        axios.post(`${window.host}/customer/${customerID}`).then((response) => {
+            if (response.data) {
+                console.log(response.data[0]);
+                setCustomer(response.data[0]);
+                if (response.data[0].Profile_Image) {
+                    const { fileName, filePath } = JSON.parse(
+                        response.data[0].Profile_Image
+                    );
+                    setImagePath(filePath);
                 }
-            });
+            }
+        });
     }, []);
     //#endregion
 

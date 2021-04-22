@@ -7,7 +7,7 @@ import axios from 'axios';
 //import PlaceOrder from "./placeOrder";
 import './navbar.css';
 //import Login from "./Login";
-import Axios from 'axios';
+import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { GetCookiesInfo } from '../global/GlobalFunction';
@@ -320,7 +320,7 @@ class NavBar extends Component {
                                 <li className="dropdown nav-item">
                                     <a
                                         className="nav-link pl-1"
-                                                 href="/knowledgebank1"
+                                        href="/knowledgebank1"
                                         style={{ color: 'white' }}
                                     >
                                         Knowledge Bank

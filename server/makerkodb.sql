@@ -86,7 +86,7 @@ CREATE TABLE `fabrication_services` (
   `Service_ID` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`Service_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `fabrication_services` (
 
 LOCK TABLES `fabrication_services` WRITE;
 /*!40000 ALTER TABLE `fabrication_services` DISABLE KEYS */;
-INSERT INTO `fabrication_services` VALUES (1,'3D Printing'),(2,'CNC Carving'),(3,'Laser Cutting');
+INSERT INTO `fabrication_services` VALUES (1,'3D Printing'),(2,'CNC Carving'),(3,'Laser Cutting'),(4,'Plasma Cutting'),(5,'Vacuum Forming');
 /*!40000 ALTER TABLE `fabrication_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +213,7 @@ CREATE TABLE `materials` (
   PRIMARY KEY (`Material_ID`,`Service_ID`),
   KEY `Fabrication_Service_idx` (`Service_ID`) /*!80000 INVISIBLE */,
   CONSTRAINT `Fabrication_Service` FOREIGN KEY (`Service_ID`) REFERENCES `fabrication_services` (`Service_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +222,7 @@ CREATE TABLE `materials` (
 
 LOCK TABLES `materials` WRITE;
 /*!40000 ALTER TABLE `materials` DISABLE KEYS */;
-INSERT INTO `materials` VALUES (1,'WPC Board (Wood Plastic Composite)',2),(2,'MDF',2),(3,'Playwood',2),(4,'Styrofoam',2),(5,'APC Board',2),(6,'Thick wood',2),(7,'Nylon sheet',2),(8,'PLA',1),(9,'ABS',1),(10,'PETG',1),(11,'TPU Flexible',1),(12,'Resin SLA: Standard, Tough, Castable',1),(13,'MDF',3),(14,'HDF Harboard',3),(15,'Paper',3),(16,'Forex/PVC Foamboard',3),(17,'Acryllic',3),(18,'Textile/synthetic',3),(19,'Polycarbonate sheet',3),(20,'PET/PVC sheet',3);
+INSERT INTO `materials` VALUES (1,'WPC Board (Wood Plastic Composite)',2),(2,'MDF',2),(3,'Playwood',2),(4,'Styrofoam',2),(5,'APC Board',2),(6,'Thick wood',2),(7,'Nylon sheet',2),(8,'PLA',1),(9,'ABS',1),(10,'PETG',1),(11,'TPU Flexible',1),(12,'Resin SLA: Standard, Tough, Castable',1),(13,'MDF',3),(14,'HDF Harboard',3),(15,'Paper',3),(16,'Forex/PVC Foamboard',3),(17,'Acryllic',3),(18,'Textile/synthetic',3),(19,'Polycarbonate sheet',3),(20,'PET/PVC sheet',3),(21,'Mild Steel Plate',4),(22,'Aluminium Sheet',4),(23,'Strainless steel',4),(24,'Copper sheet',4);
 /*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-19 17:35:43
+-- Dump completed on 2021-04-21 14:09:50
