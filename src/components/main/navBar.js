@@ -7,7 +7,6 @@ import axios from 'axios';
 //import PlaceOrder from "./placeOrder";
 import './navbar.css';
 //import Login from "./Login";
-import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { GetCookiesInfo } from '../global/GlobalFunction';
@@ -62,7 +61,7 @@ function LoginButton(props) {
 function LogoutButton({ username, customerID, manufacturerID }, props) {
     const onclick = () => {
         axios.defaults.withCredentials = true;
-        axios.post('http://localhost:3001/logout').then((response) => {
+        axios.post(`${window.host}/logout`).then((response) => {
             console.log(response);
         });
         window.location.href = '/';
@@ -182,7 +181,7 @@ class NavBar extends Component {
             this.setState({ loggedIn: isAuth });
             if (currentUser) {
                 await axios
-                    .post('http://localhost:3001/get-customer-info', {
+                    .post(`${window.host}/get-customer-info`, {
                         uid: currentUser,
                     })
                     .then((response) => {

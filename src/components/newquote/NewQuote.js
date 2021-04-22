@@ -104,7 +104,7 @@ class NewQuote extends Component {
         const thickness = dropDownData.selectedThickness.label;
         const quantity = dropDownData.selectedQuantity.label;
         const { fileName, filePath } = fileData;
-        const validationPageUrl = `${window.host}/validation-page/${encryptedKey}`;
+        const validationPageUrl = `${window.host}/validation-page`;
 
         const fileURL = `${window.host}/${filePath}`;
 

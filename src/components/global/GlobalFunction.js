@@ -9,7 +9,7 @@ const ipAddress = localIpUrl('public');
 //#region get user info from cookes
 export async function GetCookiesInfo() {
     axios.defaults.withCredentials = true;
-    const response = await axios.post('http://localhost:3001/get-cookie-info');
+    const response = await axios.post(`${window.host}/get-cookie-info`);
     console.log('response', response);
     if (response) {
         if (response.data.userInfo) {
