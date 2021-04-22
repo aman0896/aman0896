@@ -16,7 +16,7 @@ var fs = require('fs');
 app.use(express.json());
 app.use(
     cors({
-        origin: ['http://192.168.1.102:3000'],
+        origin: ['http://localhost:3000'],
         method: ['GET', 'POST'],
         credentials: true,
     })
@@ -32,13 +32,15 @@ app.use(
         //cookie: { expires: 60 * 60 * 24 },
     })
 );
+const projectPath = path.dirname(process.cwd());
+
+//Serve the static files fromt the React app_2021/04/22
+app.use(express.static(path.join(projectPath, 'build')));
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 const localIpUrl = require('local-ip-url');
-const { DataUsageSharp, DataUsage } = require('@material-ui/icons');
-const { response } = require('express');
 const ipAddress = localIpUrl('public');
 console.log(ipAddress);
 
@@ -47,7 +49,6 @@ var otp = null;
 var email = null;
 var fabricationProcess = '';
 
-const projectPath = path.dirname(process.cwd());
 //#endregion
 
 //#region databaseConnection
@@ -1540,6 +1541,11 @@ app.post('/update-services/:id', (req, res) => {
 
 //#endregion
 
-app.listen(3001, '192.168.1.102', () => {
+//Handle any request that don't match the ones above
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(projectPath, 'build', 'index.html'));
+});
+
+app.listen(3001, 'localhost', () => {
     console.log('running server');
 });

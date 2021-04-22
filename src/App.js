@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Routing from './components/main/Routing';
 import './App.css';
 
-window.host = 'http://192.168.1.102:3001'; //globalvariable
+window.host = 'localhost:3001'; //globalvariable
 
 class App extends Component {
     render() {
