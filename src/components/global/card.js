@@ -17,8 +17,9 @@ const CardView = (props) => {
         //setColor("");
     };
 
-    const onCardSelect = (index) => {
+    const onCardSelect = (index, currentHub) => {
         props.setSelected(index);
+        props.getSelectedHub(currentHub);
     };
 
     const GetLogo = (Logo) => {
@@ -56,7 +57,9 @@ const CardView = (props) => {
     return (
         <div>
             <Card
-                onClick={() => onCardSelect(props.currentIndex)}
+                onClick={() =>
+                    onCardSelect(props.currentIndex, props.currentHub)
+                }
                 className="m-2"
                 style={{ padding: 10 }}
                 style={{
@@ -154,8 +157,9 @@ export const ManufacturingHubListView = (props) => {
         //#region get_material_list
         console.log('material', props.serviceList, 'ss', props.materialList);
         props.materialList.map((materialDetails) => {
-            console.log("md",materialDetails)
-            materialList += materialDetails.selectedMaterial.Material_Name + ',';
+            console.log('md', materialDetails);
+            materialList +=
+                materialDetails.selectedMaterial.Material_Name + ',';
         });
 
         var mn = materialList.lastIndexOf(',');

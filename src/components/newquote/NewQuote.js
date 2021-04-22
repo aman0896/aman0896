@@ -22,11 +22,12 @@ class NewQuote extends Component {
         super();
         this.state = {
             categories: [
-                { id: 1, value: 'Request for Prototype' },
-                { id: 2, value: 'Check Design' },
-                { id: 3, value: 'Request Quotation' },
+                { id: 1, name: 'Request for Prototype' },
+                { id: 2, name: 'Check Design' },
+                { id: 3, name: 'Request Quotation' },
             ],
             checkedItems: new Map(),
+            items: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -44,23 +45,28 @@ class NewQuote extends Component {
         errMsg: undefined,
         fileUpload: false,
         acceptFile: 'pdf, jpeg, dxf, stl, obj, step, tif',
+        selectedHub: '',
     };
     handleChange(event) {
         var isChecked = event.target.checked;
         var item = event.target.value;
-
         this.setState((prevState) => ({
             checkedItems: prevState.checkedItems.set(item, isChecked),
         }));
     }
     handleSubmit(event) {
-        console.log(this.state.checkedItems);
+        console.log(this.state.checkedItems, '-----------');
         event.preventDefault();
     }
 
-    onClickValidate = () => {
-        const { email, customerID } = GetCookiesInfo();
-        const { dropDownData, fileData } = this.state;
+    onClickValidate = async () => {
+        const userInfo = await GetCookiesInfo().then((response) => {
+            return response.data;
+        });
+        const { uid } = userInfo;
+        const { dropDownData, fileData, checkedItems } = this.state;
+        let orderTypes;
+
         if (
             !dropDownData.selectedFabrication ||
             !dropDownData.selectedMaterial ||
@@ -75,14 +81,22 @@ class NewQuote extends Component {
                 errMsg: 'File not Selected',
             });
         }
+        const { Manufacturer_ID } = this.state.selectedHub;
+        GetOrderType(checkedItems, (err, orderType) => {
+            if (err) {
+                console.log(err);
+                return this.setState({ errMsg: err });
+            }
+            orderTypes = orderType;
+        });
 
         //Encryption
-        var encryptedUserID = CryptoJS.AES.encrypt(
-            email,
-            SECRET_KEY
-        ).toString();
-        var encryptedKey = encryptedUserID.replace(/\//g, 'slash');
-        console.log(encryptedKey);
+        // var encryptedUserID = CryptoJS.AES.encrypt(
+        //     email,
+        //     SECRET_KEY
+        // ).toString();
+        // var encryptedKey = encryptedUserID.replace(/\//g, 'slash');
+        // console.log(encryptedKey);
 
         //const userID = email;
         const fabricationProcess = dropDownData.selectedFabrication.Name;
@@ -90,7 +104,7 @@ class NewQuote extends Component {
         const thickness = dropDownData.selectedThickness.label;
         const quantity = dropDownData.selectedQuantity.label;
         const { fileName, filePath } = fileData;
-        const validationPageUrl = `http://${ipAddress}:3000/validation-page/${encryptedKey}`;
+        const validationPageUrl = `http://${ipAddress}:3000/validation-page`;
 
         const fileURL = `http://${ipAddress}:3000/${filePath}`;
 
@@ -101,17 +115,10 @@ class NewQuote extends Component {
             thickness: thickness,
             quantity: quantity,
             modelPath: fileURL,
-            customerID: customerID,
-            //#region old declaration
-            // id: userID,
-            // filename: fileName,
-            // fabricationprocess: fabricationProcess,
-            // material: material,
-            // thickness: thickness,
-            // quantity: quantity,
-            // fileurl: fileURL,
-            //#endregion
+            customerID: uid,
+            manufacturerID: Manufacturer_ID,
             validationPagePath: validationPageUrl,
+            orderType: orderTypes,
         }).then((response) => {
             console.log(response.data);
             if (response.data.message) {
@@ -137,13 +144,7 @@ class NewQuote extends Component {
     render() {
         const { isSuccess, dropDownData, errMsg } = this.state;
         return (
-            <div
-                className="p-3"
-                // style={{
-                //   backgroundColor: "rgb(58, 57, 57)",
-                //   height: "auto",
-                // }}
-            >
+            <div className="p-3">
                 <div
                     className="container mt-5 mb-5"
                     style={{
@@ -195,6 +196,9 @@ class NewQuote extends Component {
                         <HubListArea
                             title="Select Your Hub"
                             HubList={dropDownData}
+                            getSelectedHub={(selectedHub) =>
+                                this.setState({ selectedHub: selectedHub })
+                            }
                         />
                     </div>
                     <hr
@@ -202,7 +206,7 @@ class NewQuote extends Component {
                             borderColor: 'lightgray',
                             boxShadow: '0px 3px 2px gray',
                         }}
-                    />{' '}
+                    />
                     <div
                         className="row p-3 mt-5"
                         style={{
@@ -215,13 +219,14 @@ class NewQuote extends Component {
                                     <input
                                         type="checkbox"
                                         value={item.id}
+                                        name={item.name}
                                         onChange={this.handleChange}
                                         style={{
                                             marginRight: '10px',
                                             marginLeft: '10px',
                                         }}
                                     />
-                                    {item.value}
+                                    {item.name}
                                 </h5>
                             </div>
                         ))}
@@ -230,9 +235,9 @@ class NewQuote extends Component {
                         <button
                             type="button"
                             className="btn btn-primary btn-lg"
-                            //onClick={this.onClickValidate}
+                            onClick={this.onClickValidate}
                         >
-                            Validate
+                            Submit
                         </button>
                     </div>
                     <div
@@ -249,3 +254,44 @@ class NewQuote extends Component {
 }
 
 export default NewQuote;
+
+function GetOrderType(checkedItems, orderType) {
+    let checkedList;
+    let checkDesign = checkedItems.get('2');
+    let requestPrototype = checkedItems.get('1');
+    let requestQuotation = checkedItems.get('3');
+
+    if (checkDesign && requestPrototype && requestQuotation) {
+        checkedList = {
+            checkDesign: 'check Design',
+            requestPrototype: 'Request Prototype',
+            requestQuotation: 'Request Quotation',
+        };
+    } else if (checkDesign && requestPrototype) {
+        checkedList = {
+            checkDesign: 'check Design',
+            requestPrototype: 'Request Prototype',
+        };
+    } else if (checkDesign && requestQuotation) {
+        checkedList = {
+            checkDesign: 'check Design',
+            requestQuotation: 'Request Quotation',
+        };
+    } else if (requestPrototype && requestQuotation) {
+        checkedList = {
+            requestPrototype: 'Request Prototype',
+            requestQuotation: 'Request Quotation',
+        };
+    } else if (checkDesign) {
+        checkedList = { checkDesign: 'Check Design' };
+    } else if (requestPrototype) {
+        checkedList = { requestPrototype: 'Request Prototype' };
+    } else if (requestQuotation) {
+        checkedList = { requestQuotation: 'Request Quotation' };
+    }
+    if (checkedList) {
+        orderType(null, checkedList);
+    } else {
+        orderType('At least one check box must be checked', null);
+    }
+}

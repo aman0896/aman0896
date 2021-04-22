@@ -23,6 +23,11 @@ app.use(
 app.use(fileUPload());
 app.use(cookieParser());
 
+console.log(path.join(projectPath));
+
+//Serve the static files fromt the React app
+app.use(express.static(path.join(projectPath, 'build')));
+
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
 console.log(ipAddress);
@@ -878,10 +883,10 @@ app.post('/order-specification', (req, res) => {
         const modelPath = req.body.modelPath;
         const customerID = req.body.customerID;
         const manufacturerID = req.body.manufacturerID;
-        const orderType = req.body.orderType;
+        const orderType = JSON.stringify(req.body.orderType);
         const status = 'pending';
         const amount = req.body.amount;
-        const date = '';
+        const date = new Date().toLocaleString();
         // const id = req.body.id;
         // const fabricationProcess = req.body.fabricationprocess;
         // const material = req.body.material;
@@ -890,9 +895,6 @@ app.post('/order-specification', (req, res) => {
         // const filename = req.body.filename;
         // const url = req.body.fileurl;
         const validationPagePath = req.body.validationPagePath;
-        console.log(validationPagePath);
-        console.log(req.body);
-
         if (
             modelName != null &&
             fabricationService != null &&
@@ -900,11 +902,13 @@ app.post('/order-specification', (req, res) => {
             thickness != null &&
             quantity != null &&
             modelPath != null &&
-            customerID != null
+            customerID != null &&
+            manufacturerID != null
         ) {
             db.query(
-                'INSERT INTO order_specification (Model_Name, Fabrication_Service, Material, Thickness, Quantity, Model_Path, Customer_ID) VALUES (?,?,?,?,?,?,?)',
+                'INSERT INTO order_specification (Order_Type, Model_Name, Fabrication_Service, Material, Thickness, Quantity, Model_Path, Customer_ID, Manufacturer_ID, Status, Amount, Date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
                 [
+                    orderType,
                     modelName,
                     fabricationService,
                     material,
@@ -912,10 +916,12 @@ app.post('/order-specification', (req, res) => {
                     quantity,
                     modelPath,
                     customerID,
+                    manufacturerID,
+                    status,
+                    amount,
+                    date,
                 ],
                 (err, result) => {
-                    console.log('result', result);
-                    console.log('result', err);
                     if (!err) {
                         var mailOptions = {
                             to: 'fabhubsnepal1@gmail.com',
@@ -941,9 +947,11 @@ app.post('/order-specification', (req, res) => {
                                     'Your Design is sent for Validation it may take up to 24 hr',
                             });
                         });
-                    } else return err;
+                    } else console.log('line-950', err);
                 }
             );
+        } else {
+            console.log('error');
         }
     } catch {}
 });
@@ -970,42 +978,55 @@ app.post('/hublist', (req, res) => {
 //#endregion
 
 //#region get page info(validation page)
-app.post('/validation/:id', (req, res) => {
+app.get('/validation', (req, res) => {
     try {
-        var CryptoJS = require('crypto-js');
-        const SECRET_KEY = 'FabHubs@promech';
+        console.log('connected');
+        // var CryptoJS = require('crypto-js');
+        // const SECRET_KEY = 'FabHubs@promech';
 
-        const id = req.params.id;
-        //decryption
-        var dataString = id.replace(/slash/g, '/');
-        console.log(dataString);
-        var decrypted = CryptoJS.AES.decrypt(dataString, SECRET_KEY);
-        const userID = decrypted.toString(CryptoJS.enc.Utf8);
-        console.log(userID);
+        // const id = req.params.id;
+        // //decryption
+        // var dataString = id.replace(/slash/g, '/');
+        // console.log(dataString);
+        // var decrypted = CryptoJS.AES.decrypt(dataString, SECRET_KEY);
+        // const userID = decrypted.toString(CryptoJS.enc.Utf8);
+        // console.log(userID);
         //decryption
         db.query(
-            'SELECT * FROM customer WHERE Email = ?',
-            [userID],
-            (err, result) => {
-                console.log('userid', result[0].Customer_ID);
-                if (!err && result.length > 0) {
-                    db.query(
-                        'SELECT * FROM order_specification WHERE Customer_ID =?',
-                        [result[0].Customer_ID],
-                        (err, orderSpecification) => {
-                            if (orderSpecification.length > 0) {
-                                res.json({
-                                    orderSpecification,
-                                    userInfo: result,
-                                });
-                            }
-                        }
-                    );
+            'SELECT * FROM order_specification',
+            (err, orderSpecification) => {
+                if (err) {
+                    return console.log(err);
                 }
-                //res.json(result);
-                //console.log(result);
+                console.log('---------***--------', orderSpecification);
+                res.json({
+                    orderSpecification,
+                });
             }
         );
+        // db.query(
+        //     'SELECT * FROM customer WHERE Email = ?',
+        //     [userID],
+        //     (err, result) => {
+        //         console.log('userid', result[0].Customer_ID);
+        //         if (!err && result.length > 0) {
+        //             db.query(
+        //                 'SELECT * FROM order_specification WHERE Customer_ID =?',
+        //                 [result[0].Customer_ID],
+        //                 (err, orderSpecification) => {
+        //                     if (orderSpecification.length > 0) {
+        //                         res.json({
+        //                             orderSpecification,
+        //                             userInfo: result,
+        //                         });
+        //                     }
+        //                 }
+        //             );
+        //         }
+        //         //res.json(result);
+        //         //console.log(result);
+        //     }
+        // );
     } catch (err) {
         console.log(err);
     }
@@ -1588,6 +1609,10 @@ app.post('/get-customer-info', (req, res) => {
     );
 });
 //#endregion
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(projectPath, 'build', 'index.html'));
+});
 
 app.listen(3001, '127.0.0.1', () => {
     console.log('running server');

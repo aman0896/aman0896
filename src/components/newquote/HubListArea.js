@@ -4,9 +4,10 @@ import Scrollbars from 'react-custom-scrollbars';
 import CardView from '../global/card';
 
 var list = null;
-function HubListArea({ title, HubList }) {
+function HubListArea({ title, HubList, getSelectedHub }) {
     const [selectedCardIndex, setSelectedCardIndex] = useState('');
     const [search, setsearch] = useState();
+    const [selectedHub, setSelectedHub] = useState();
     var companyList = [];
 
     // console.log(Hublist.hublist);
@@ -30,8 +31,6 @@ function HubListArea({ title, HubList }) {
 
     if (companyList && companyList.length > 0) {
         let serviceData = '';
-        // console.log(companyList.Logo);
-        //var filesData = JSON.parse(companyList.Logo);
 
         list = companyList
             .filter((data) => {
@@ -75,6 +74,7 @@ function HubListArea({ title, HubList }) {
                             visitProfile={onClickVisitProfile}
                             selected={selected}
                             setSelected={setSelectedCardIndex}
+                            getSelectedHub={getSelectedHub}
                         />
                     </div>
                 );
@@ -105,7 +105,7 @@ function HubListArea({ title, HubList }) {
                             title="Search"
                             placeholder="Search by location, Name"
                             style={{
-                                paddingRight:"40px"
+                                paddingRight: '40px',
                             }}
                             onChange={(e) => searchSpace(e)}
                         />{' '}

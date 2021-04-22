@@ -112,10 +112,7 @@ function Routing({ isAuth, currentUser }) {
                             component={featureProject}
                         />
 
-                        <Route
-                            path="/validation-page/:uid"
-                            component={validation}
-                        />
+                        <Route path="/validation-page" component={validation} />
                         <ProtectedRoute
                             path="/feature"
                             component={Feature}
