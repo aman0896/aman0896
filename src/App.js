@@ -3,7 +3,7 @@ import Routing from './components/main/Routing';
 import { GetCookiesInfo } from './components/global/GlobalFunction';
 import './App.css';
 
-window.host = 'localhost:3001'; //globalvariable
+window.host = 'http://192.168.1.103:3001'; //globalvariable
 
 class App extends Component {
     state = {

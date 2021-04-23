@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
 
 const localIpUrl = require('local-ip-url');
@@ -9,9 +8,9 @@ console.log(ipAddress);
 
 function Validation() {
     const [orderInfo, setOrderInfo] = useState();
-    const [userInfo, setUserInfo] = useState();
     const [tableTitle, setTableTitle] = useState([
         'OrderID',
+        'CustomerID',
         'Date',
         'OrderType',
         'ModelName',
@@ -22,37 +21,13 @@ function Validation() {
         'Download',
         'Validation',
     ]);
-    // state = {
-    //     orderInfo: [],
-    //     fileName: '',
-    //     url: '',
-    //     fabricationProcess: '',
-    //     material: '',
-    //     thickness: '',
-    //     quantity: '',
-    //     id: '',
-    //     userInfo: {},
 
-    //     tableTitle: [
-    //         'OrderID',
-    //         'OrderType',
-    //         'ModelName',
-    //         'FabricationService',
-    //         'Material',
-    //         'Thickness',
-    //         'Quantity',
-    //         'Download',
-    //         'Validation',
-    //     ],
-    // };
     useEffect(() => {
-        axios.post(`http://localhost:3001/validation`).then((response) => {
+        axios.get(`${window.host}/validation`).then((response) => {
             if (response.data) {
                 const data = response.data.orderSpecification;
                 console.log(data);
-                const userInfo = response.data.userInfo;
                 setOrderInfo(data);
-                //setUserInfo(userInfo[0]);
             }
         });
     }, []);
@@ -64,6 +39,20 @@ function Validation() {
             </th>
         );
     });
+
+    const GetOrderType = (orderType) => {
+        var stringData = JSON.stringify(orderType);
+        var data = stringData.replace(/[\[\\\]"]+/g, '');
+        return data;
+        // props.serviceList.forEach((service) => {
+        //     if (hubID == service.Manufacturer_ID) {
+        //         services = services.concat(service);
+        //         manufacturingServices += service.Name + ',';
+        //     }
+        // });
+        // var sn = manufacturingServices.lastIndexOf(',');
+        // manufacturingServices = manufacturingServices.substring(0, sn);
+    };
 
     if (orderInfo) {
         var data = orderInfo.map((item, index) => {
@@ -79,13 +68,19 @@ function Validation() {
                         className="align-middle text-center"
                         style={{ width: '5%' }}
                     >
+                        {item.Customer_ID}
+                    </td>
+                    <td
+                        className="align-middle text-center"
+                        style={{ width: '5%' }}
+                    >
                         {item.Date}
                     </td>
                     <td
                         className="align-middle text-center"
                         style={{ width: '5%' }}
                     >
-                        {item.Order_Type}
+                        {GetOrderType(item.Order_Type)}
                     </td>
                     <td
                         className="align-middle text-center"

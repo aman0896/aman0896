@@ -265,32 +265,23 @@ function GetOrderType(checkedItems, orderType) {
     let requestQuotation = checkedItems.get('3');
 
     if (checkDesign && requestPrototype && requestQuotation) {
-        checkedList = {
-            checkDesign: 'check Design',
-            requestPrototype: 'Request Prototype',
-            requestQuotation: 'Request Quotation',
-        };
+        checkedList = [
+            'check Design',
+            'Request Prototype',
+            'Request Quotation',
+        ];
     } else if (checkDesign && requestPrototype) {
-        checkedList = {
-            checkDesign: 'check Design',
-            requestPrototype: 'Request Prototype',
-        };
+        checkedList = ['check Design', 'Request Prototype'];
     } else if (checkDesign && requestQuotation) {
-        checkedList = {
-            checkDesign: 'check Design',
-            requestQuotation: 'Request Quotation',
-        };
+        checkedList = ['check Design', 'Request Quotation'];
     } else if (requestPrototype && requestQuotation) {
-        checkedList = {
-            requestPrototype: 'Request Prototype',
-            requestQuotation: 'Request Quotation',
-        };
+        checkedList = ['Request Prototype', 'Request Quotation'];
     } else if (checkDesign) {
-        checkedList = { checkDesign: 'Check Design' };
+        checkedList = ['Check Design'];
     } else if (requestPrototype) {
-        checkedList = { requestPrototype: 'Request Prototype' };
+        checkedList = ['Request Prototype'];
     } else if (requestQuotation) {
-        checkedList = { requestQuotation: 'Request Quotation' };
+        checkedList = ['Request Quotation'];
     }
     if (checkedList) {
         orderType(null, checkedList);

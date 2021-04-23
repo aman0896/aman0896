@@ -16,7 +16,7 @@ require('dotenv').config({ path: path.join(projectPath, '.env') });
 app.use(express.json());
 app.use(
     cors({
-        origin: ['http://localhost:3000'],
+        origin: ['http://192.168.1.103:3000'],
         credentials: true,
     })
 );
@@ -26,7 +26,7 @@ app.use(cookieParser());
 console.log(path.join(projectPath));
 
 //Serve the static files fromt the React app
-app.use(express.static(path.join(projectPath, 'build')));
+app.use(express.static(path.join(projectPath, 'public')));
 
 const localIpUrl = require('local-ip-url');
 const ipAddress = localIpUrl('public');
@@ -1610,10 +1610,14 @@ app.post('/get-customer-info', (req, res) => {
 });
 //#endregion
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(projectPath, 'build', 'index.html'));
+app.get('/api', (req, res) => {
+    res.send('hello World from express.js');
 });
 
-app.listen(3001, '127.0.0.1', () => {
+app.get('*', (req, res) => {
+    res.sendFile(path.join(projectPath, 'public', 'index.html'));
+});
+
+app.listen(3001, '192.168.1.103', () => {
     console.log('running server');
 });
